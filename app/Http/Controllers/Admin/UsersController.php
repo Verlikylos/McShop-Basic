@@ -28,9 +28,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-//        dd($users);
-
-//        $users = $this->userRepository->all();
 
         return View::make('admin.users.index')->with(['users' => $users]);
     }

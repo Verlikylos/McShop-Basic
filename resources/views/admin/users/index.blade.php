@@ -9,7 +9,7 @@
 
 @section('content')
     <section class="paginated-table-wrapper">
-        <table id="usersTable" class="table table-striped table-centered table-responsive-lg table-paginated">
+        <table id="usersTable" class="table table-striped table-centered table-responsive-lg">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">ID</th>
@@ -49,5 +49,5 @@
         </table>
     </section>
 
-    {!! $users->links() !!}
+    {{ $users->links() }}
 @endsection
