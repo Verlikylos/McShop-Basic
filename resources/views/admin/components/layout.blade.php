@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-    <link rel="stylesheet" href="{{ mix('/css/themes/vmcshop.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/datatables.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/fontawesome.css') }}">
-    
+
+    <link rel="stylesheet" href="{{ mix('/css/themes/vmcshop.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/datatables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/fontawesome.min.css') }}">
+
     <title>vMCShop Basic - @yield('title')</title>
 </head>
 <body class="acp">
@@ -26,14 +26,14 @@
             </main>
         @else
             <div class="row">
-                
+
                 @include('admin.components.sidebar')
-                
+
                 <main class="col-12 col-md-9 col-lg-10">
                     <div class="acp-card-header">
                         @yield('acp-card-title')
                     </div>
-                    
+
                     @if (session('sessionMessage'))
                         <div class="alert {{ 'alert-' . session('sessionMessage')['type'] }} alert-with-icon alert-dismissible fade show" role="alert">
                             <div class="alert-icon">
@@ -51,13 +51,13 @@
                             </button>
                         </div>
                     @endif
-                    
+
                     @yield('content')
                 </main>
             </div>
         @endif
     </div>
-    
+
     <footer>
         <a href="{{ route('home') }}">
             <i class="fas fa-arrow-left"></i> Przejdź do sklepu
@@ -68,7 +68,7 @@
     </footer>
 </div>
 
-<script src="{{ mix('/js/bootstrap.js') }}"></script>
-<script src="{{ asset('/js/datatables.js') }}"></script>
+<script src="{{ mix('/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('/js/datatables.min.js') }}"></script>
 </body>
 </html>

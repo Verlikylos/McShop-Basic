@@ -21,6 +21,8 @@ Route::get('/service', [
     'uses' => 'ServiceController@index'
 ]);
 
+Route::permanentRedirect('/admin', '/auth');
+
 Route::get('/auth', [
     'as' => 'auth.index',
     'uses' => 'AuthController@index'
