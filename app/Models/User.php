@@ -2,13 +2,36 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
-use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Model
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $password
+ * @property string $avatar_url
+ * @property object $permissions
+ * @property string|null $last_login_attempt_ip
+ * @property int|null $last_login_attempt_successful
+ * @property \Illuminate\Support\Carbon|null $last_login_attempt_at
+ * @property string|null $remember_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatarUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLastLoginAttemptAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLastLoginAttemptIp($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLastLoginAttemptSuccessful($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePermissions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
+ * @mixin \Eloquent
+ */
+class User extends Authenticatable
 {
-    use Authenticatable;
 
     public $timestamps = false;
 
@@ -20,51 +43,108 @@ class User extends Model
         'last_login_attempt_at'
     ];
 
-    public static function create($name, $password, $permissions) {
-        $user = new User();
+    public $guarded = [];
 
-        $user->name = $name;
-        $user->password = bcrypt($password);
-        $user->avatar_url = asset('images/default-avatar.png');
-
-        if (is_array($permissions)) {
-            $permissions = (object) $permissions;
-        }
-
-        $user->permissions = $permissions;
-        $user->save();
-
-        // TODO log to db
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
     }
 
-    public function updatePermissions($permissions)
+    /**
+     * @return string
+     */
+    public function getName(): string
     {
+        return $this->name;
+    }
 
+    /**
+     * @param  string  $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $password
+     */
+    public function setPassword(string $password): void
+    {
+        $this->password = bcrypt($password);
+    }
+
+    /**
+     * @return object
+     */
+    public function getPermissions(): object
+    {
+        return $this->permissions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAvatarUrl(): string
+    {
+        return $this->avatar_url;
+    }
+
+    /**
+     * @param  string  $avatar_url
+     */
+    public function setAvatarUrl(string $avatar_url): void
+    {
+        $this->avatar_url = $avatar_url;
+    }
+
+    /**
+     * @param  object  $permissions
+     */
+    public function setPermissions(object $permissions): void
+    {
         if (is_array($permissions)) {
             $permissions = (object) $permissions;
         }
 
         $this->permissions = $permissions;
-        $this->save();
-
-        // TODO log to db
     }
 
-    public static function remove($id) {
-        $user = User::findOrFail($id);
-
-
-        $user->delete();
-
-        // TODO log to db
+    /**
+     * @return string|null
+     */
+    public function getLastLoginAttemptIp(): ?string
+    {
+        return $this->last_login_attempt_ip;
     }
 
-    public static function changePassword($id, $password) {
-        $user = User::findOrFail($id);
+    /**
+     * @return int|null
+     */
+    public function isLastLoginAttemptSuccessful(): ?int
+    {
+        return $this->last_login_attempt_successful;
+    }
 
-        $user->password = bcrypt($password);
-        $user->save();
+    /**
+     * @return \Illuminate\Support\Carbon|null
+     */
+    public function getLastLoginAttemptAt(): ?\Illuminate\Support\Carbon
+    {
+        return $this->last_login_attempt_at;
+    }
 
-        // TODO log to db
+    /**
+     * @param  string  $ip
+     * @param  bool  $status
+     */
+    public function setLastLoginInfo(string $ip, bool $status): void
+    {
+        $this->last_login_attempt_ip = $ip;
+        $this->last_login_attempt_successful = $status;
+        $this->last_login_attempt_at = now();
     }
 }

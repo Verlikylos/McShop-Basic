@@ -63,19 +63,19 @@ Route::middleware('auth')
                     'as' => 'store',
                     'uses' => 'UsersController@store'
                 ]);
-                Route::get('/{id}/edit', [
+                Route::get('/{user}/edit', [
                     'as' => 'edit',
                     'uses' => 'UsersController@edit'
                 ]);
-                Route::patch('/{id}', [
+                Route::patch('/{user}', [
                     'as' => 'update',
                     'uses' => 'UsersController@update'
                 ]);
-                Route::get('/{id}/changePassword', [
+                Route::get('/{user}/changePassword', [
                     'as' => 'changePassword',
                     'uses' => 'UsersController@changePassword'
                 ]);
-                Route::get('/{id}/delete', [
+                Route::get('/{user}/delete', [
                     'as' => 'delete',
                     'uses' => 'UsersController@delete'
                 ]);
