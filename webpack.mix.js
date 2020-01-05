@@ -21,13 +21,14 @@ mix
     .setPublicPath(PATHS.dist)
     .options({ processCssUrls: false })
 
-    .copy(`${PATHS.src}/js/datatables.js`, `${PATHS.dist}/js/datatables.min.js`)
+    .copy(`${PATHS.src}/js/datatables.min.js`, `${PATHS.dist}/js/datatables.min.js`)
     .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
 
     .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)
     .sass(`${PATHS.src}/scss/themes/vmcshop/vmcshop.scss`, `${PATHS.dist}/css/themes/vmcshop.min.css`)
 
     .copy(`${PATHS.src}/images`, `${PATHS.dist}/images`)
+    .copy(`${PATHS.src}/webfonts`, `${PATHS.dist}/webfonts`)
 
     .version()
     .sourceMaps()
