@@ -1,12 +1,28 @@
 {
-    "name": "laravel/laravel",
+    "name": "mcshop/mcshop-basic",
+    "description": "Nowy wymiar automatycznego sklepu Minecraft!",
+    "version": "2.0.0-beta.1",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": [
-        "framework",
-        "laravel"
+    "keywords": ["mcshop", "mcshop-basic", "basic", "mc", "shop", "sklep", "minecraft", "itemshop", "smsshop", "sms", "verlikylos"],
+    "homepage": "https://vmcshop.pro/",
+    "readme": "https://github.com/Verlikylos/MCShop-Basic/blob/master/README.md",
+    "license": "GPL-3.0-only",
+    "authors": [
+        {
+            "name": "Kamil Twardowski",
+            "email": "hello@verlikylos.dev",
+            "homepage": "https://verlikylos.dev/",
+            "role": "Developer"
+        }
     ],
-    "license": "MIT",
+    "support": {
+        "email": "support@mcshop.io",
+        "docs": "https://forum.mcshop.io/c/mcshop-standard",
+        "forum": "https://forum.mcshop.io/",
+        "chat": "https://mcshop.io/discord",
+        "issues": "https://github.com/Verlikylos/MCShop-Basic/issues",
+        "source": "https://github.com/Verlikylos/MCShop-Basic"
+    },
     "require": {
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
