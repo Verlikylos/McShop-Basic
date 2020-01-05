@@ -324,18 +324,6 @@ footer {
   }
 }
 
-.dt-wrapper {
-  height: 600px !important;
-}
-
-.dataTables_paginate {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-top: 1rem;
-}
-
 .td-actions .btn {
   display: inline-flex;
   align-items: center;
@@ -393,4 +381,8 @@ footer {
   .alert-message {
     margin: 0;
   }
+}
+
+.paginated-table-wrapper {
+    min-height: 100%;
 }

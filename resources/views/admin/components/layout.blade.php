@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="{{ mix('/css/themes/vmcshop.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('/css/datatables.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/fontawesome.min.css') }}">
 
     <title>vMCShop Basic - @yield('title')</title>
@@ -69,6 +68,5 @@
 </div>
 
 <script src="{{ mix('/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('/js/datatables.min.js') }}"></script>
 </body>
 </html>

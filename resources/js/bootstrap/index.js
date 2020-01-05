@@ -12,8 +12,6 @@ import Toast from './toast'
 import Tooltip from './tooltip'
 import Util from './util'
 
-import './datatables'
-
 import './vmcshop'
 
 /**

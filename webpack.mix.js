@@ -21,7 +21,6 @@ mix
     .setPublicPath(PATHS.dist)
     .options({ processCssUrls: false })
 
-    .copy(`${PATHS.src}/js/datatables.min.js`, `${PATHS.dist}/js/datatables.min.js`)
     .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
 
     .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)

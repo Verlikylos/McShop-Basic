@@ -10500,20 +10500,6 @@ footer .card-body {
   vertical-align: middle;
 }
 
-.dt-wrapper {
-  height: 600px !important;
-}
-
-.dataTables_paginate {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
-  margin-top: 1rem;
-}
-
 .td-actions .btn {
   display: -webkit-inline-box;
   display: inline-flex;
@@ -10570,6 +10556,10 @@ footer .card-body {
 }
 .alert-with-icon .alert-message {
   margin: 0;
+}
+
+.paginated-table-wrapper {
+  min-height: 100%;
 }
 
 .navbar {

@@ -19,7 +19,7 @@ class UserRepository implements UserRepositoryInterface
 
     public function getById(int $id): User
     {
-        return User::firstOrFail($id);
+        return User::findOrFail($id);
     }
 
     public function new(array $data): User
@@ -36,11 +36,11 @@ class UserRepository implements UserRepositoryInterface
 
     public function update(int $userId, array $data): bool
     {
-        return User::firstOrFail($userId)->update($data);
+        return User::findOrFail($userId)->update($data);
     }
 
     public function delete(int $userId): bool
     {
-        return User::firstOrFail($userId)->delete();
+        return User::findOrFail($userId)->delete();
     }
 }
