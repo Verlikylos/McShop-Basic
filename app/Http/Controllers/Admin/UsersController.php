@@ -27,7 +27,10 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = $this->userRepository->all();
+        $users = User::paginate(10);
+//        dd($users);
+
+//        $users = $this->userRepository->all();
 
         return View::make('admin.users.index')->with(['users' => $users]);
     }
@@ -120,11 +123,13 @@ class UsersController extends Controller
 
     public function delete(User $user)
     {
+
+
         if ($user->getId() === Auth::user()->getId()) {
             return Redirect::route('admin.users.index')->with('sessionMessage', ['type' => 'danger', 'content' => 'Nie możesz usunąć tego użytkownika!']);
         }
 
-        $this->userRepository->delete($userId);
+        $this->userRepository->delete($user->getId());
 
         return Redirect::route('admin.users.index')
             ->with('sessionMessage', ['type' => 'success', 'content' =>

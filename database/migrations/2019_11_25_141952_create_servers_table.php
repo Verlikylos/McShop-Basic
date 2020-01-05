@@ -15,7 +15,7 @@ class CreateServersTable extends Migration
     {
         Schema::create('servers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('image_url');
             $table->string('display_address');
             $table->enum('connection_method', ['rcon', 'api']);
@@ -26,8 +26,8 @@ class CreateServersTable extends Migration
             $table->string('api_address')->nullable(true);
             $table->string('api_key')->nullable(true);
             $table->boolean('announcement_enabled')->default(false);
-            $table->boolean('announcement_content')->nullable(true);
-            $table->boolean('enabled')->default(true);
+            $table->text('announcement_content')->nullable(true);
+            $table->boolean('active')->default(true);
             $table->unsignedInteger('sort_id');
         });
     }
