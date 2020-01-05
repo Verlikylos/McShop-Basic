@@ -1,0 +1,396 @@
+body {
+    background: url("../../images/background.png") no-repeat center fixed;
+
+  &.acp {
+    background: $breadcrumb-bg;
+
+    .logo-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0;
+      padding: 2rem 0 calc(2rem + 10px);
+
+      background: url("../../images/background.png") no-repeat bottom fixed;
+    }
+
+    aside {
+      .nav-pills {
+        display: block;
+
+        .nav-item {
+          display: block;
+        }
+
+        .nav-link {
+          padding: 0.5rem;
+
+          color: $primary;
+          text-align: left;
+
+          &.active {
+            color: $white;
+          }
+        }
+      }
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      margin: 1rem 0;
+    }
+  }
+}
+
+.logo-wrapper {
+    margin: 2rem 0;
+}
+
+.nav-breadcrumb {
+    margin: 1rem 0;
+}
+
+footer {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+    .card-body {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        padding: .25rem .5rem;
+    }
+}
+
+.shop-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.server-status-card {
+    margin-bottom: 1rem;
+
+    text-align: center;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+
+    .progress {
+        margin: 1rem 0;
+    }
+}
+
+.card {
+    background-color: $breadcrumb-bg;
+}
+
+.service-card {
+    margin-bottom: 1rem;
+
+    background-color: $card-bg;
+
+    &:not(.card-img-left) {
+        text-align: center;
+
+        .btn {
+            margin-top: 1rem;
+        }
+    }
+}
+
+.pagination-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination {
+    margin: 1rem 0;
+}
+
+.pagination {
+  &.pagination-centered {
+    justify-content: center;
+  }
+}
+
+.discord-widget {
+  iframe {
+    width: 100%;
+    max-height: 256px;
+  }
+}
+
+.service-pricing-table {
+    .list-group-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}
+
+.service-last-customers {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .avatar {
+        margin: 0 .25rem;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+}
+
+.avatar {
+    width: 37px;
+    height: 37px;
+
+    border-radius: $border-radius;
+}
+
+#servicePaymentTabs {
+    margin-top: 1rem;
+
+    background-color: $white;
+
+    border-radius: $nav-pills-border-radius;
+
+    .nav-pills {
+        border-bottom: 1px solid $gray-300;
+    }
+
+  .nav-link {
+    color: $primary;
+
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
+    &:hover {
+      color: $primary;
+
+      background-color: rgba($primary, 0.15);
+    }
+
+    &.active {
+      color: $white;
+    }
+  }
+
+    .tab-pane {
+      min-height: 468px;
+
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    .service-payment-cta {
+      margin: 2rem 0;
+    }
+
+    .form-group {
+      text-align: left;
+    }
+
+    form button {
+      margin: 1rem 0;
+    }
+}
+
+.acp-raised-card {
+
+  width: 100%;
+  min-height: 75vh;
+
+  margin-top: -30px;
+  padding: .25rem 1rem 1rem 1rem;
+
+  background-color: $white;
+
+  border-radius: $border-radius;
+}
+
+#loginBox {
+  padding: 2rem 0;
+
+  text-align: center;
+
+  form {
+    .form-group {
+      text-align: left;
+    }
+
+    .btn {
+      margin: 1rem 0;
+    }
+  }
+}
+
+.user-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  height: 61px;
+
+  margin-bottom: 1rem;
+
+  border-bottom: 1px solid $gray-300;
+}
+
+.user-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+
+  .user-avatar {
+    margin-right: .5rem;
+  }
+
+  span {
+    color: $body-color;
+  }
+}
+
+.user-avatar {
+  width: 30px;
+  height: 30px;
+
+  border-radius: 50%;
+}
+
+.acp-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  height: 61px;
+
+  margin-bottom: 1rem;
+
+  border-bottom: 1px solid $gray-300;
+
+  .acp-card-title {
+    margin: 0;
+  }
+}
+
+#acpServerStatusesTable {
+  margin-bottom: 0;
+
+  tr:first-child {
+    td {
+      border: none;
+    }
+  }
+}
+
+.table-centered {
+  tr {
+    text-align: center;
+  }
+
+  td, th {
+    vertical-align: middle;
+  }
+}
+
+.dt-wrapper {
+  height: 600px !important;
+}
+
+.dataTables_paginate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 1rem;
+}
+
+.td-actions .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  padding: 0;
+
+  i {
+    width: 12px;
+    height: 12px;
+    font-size: .75rem;
+  }
+}
+
+.permissions-list {
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0;
+
+    .permission-desc {
+      padding: .75rem 1.25rem;
+    }
+
+    .checkbox-wrapper {
+      padding: .75rem 1.25rem;
+
+      .custom-checkbox {
+        margin-left: 6px;
+      }
+
+      border-left: 1px solid rgba(0, 0, 0, 0.125);
+    }
+  }
+}
+
+.alert-with-icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .alert-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding-right: 1.25rem;
+  }
+
+  .alert-message {
+    margin: 0;
+  }
+}

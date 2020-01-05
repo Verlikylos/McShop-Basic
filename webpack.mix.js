@@ -11,5 +11,35 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+const PATHS = {
+    src: 'resources',
+    dist: 'public',
+    proxy: 'https://mcshop-basic.test/'
+};
+
+mix
+    .setPublicPath(PATHS.dist)
+    .options({ processCssUrls: false })
+
+    .copy(`${PATHS.src}/js/datatables.js`, `${PATHS.dist}/js/datatables.min.js`)
+    .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
+
+    .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)
+    .sass(`${PATHS.src}/scss/themes/vmcshop/vmcshop.scss`, `${PATHS.dist}/css/themes/vmcshop.min.css`)
+
+    .copy(`${PATHS.src}/images`, `${PATHS.dist}/images`)
+
+    .version()
+    .sourceMaps()
+
+    .browserSync({
+        open: true,
+        ui: false,
+        injectChanges: true,
+        notify: false,
+        host: 'localhost',
+        port: 8080,
+        proxy: `${PATHS.proxy}`,
+        logLevel: 'silent',
+        files: [`${PATHS.src}/views/**/*.*`, `${PATHS.dist}/**/*.*`]
+    });
