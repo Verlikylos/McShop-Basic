@@ -6,6 +6,7 @@ namespace App\Http\Repositories;
 
 use App\Http\Repositories\Interfaces\ServerRepositoryInterface;
 use App\Models\Server;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 class ServerRepository implements ServerRepositoryInterface
@@ -19,6 +20,15 @@ class ServerRepository implements ServerRepositoryInterface
     public function getById(int $id): Server
     {
         return Server::findOrFail($id);
+    }
+
+    public function getLastSortIndex(): int
+    {
+        try {
+            return Server::orderByDesc('sort_id')->firstOrFail()->getSortId();
+        } catch (ModelNotFoundException $e) {
+            return 0;
+        }
     }
 
     public function new(array $data): Server

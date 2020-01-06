@@ -13,6 +13,8 @@ interface ServerRepositoryInterface
 
     public function getById(int $id): Server;
 
+    public function getLastSortIndex(): int;
+
     public function new(array $data): Server;
 
     public function update(int $serverId, array $data): bool;

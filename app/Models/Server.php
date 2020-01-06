@@ -247,6 +247,14 @@ class Server extends Model
     }
 
     /**
+     * @return string|null
+     */
+    public function getMarkdownedAnnouncementContet(): ?string
+    {
+        return app(\Parsedown::class)->setSafeMode(true)->text($this->announcement_content);
+    }
+
+    /**
      * @param  string|null  $announcement_content
      */
     public function setAnnouncementContent(?string $announcement_content): void
