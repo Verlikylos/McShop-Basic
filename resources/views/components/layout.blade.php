@@ -49,7 +49,7 @@
             <div class="card shadow">
                 <div class="card-body copy">
                     <span class="copyright">
-                        Proudly powered by <a href="https://vmcshop.pro">vMCShop Basic</a> v2.0.0-beta.1
+                        Proudly powered by <a href="https://mcshop.io">MCShop Basic</a> {{ env('MCSHOP_VERSION') }}
                     </span>
                 </div>
             </div>

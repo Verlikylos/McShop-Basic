@@ -62,7 +62,7 @@
             <i class="fas fa-arrow-left"></i> Przejdź do sklepu
         </a>
         <span class="copyright">
-            Proudly powered by <a href="https://vmcshop.pro">vMCShop Basic</a> {{ env('VMCSHOP_VERSION') }}
+            Proudly powered by <a href="https://mcshop.io/">MCShop Basic</a> {{ env('MCSHOP_VERSION') }}
         </span>
     </footer>
 </div>

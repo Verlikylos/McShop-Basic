@@ -15,10 +15,18 @@ class AuthController extends Controller
 {
     public function index()
     {
+        if (Auth::user()) {
+            return Redirect::route('admin.dashboard');
+        }
+
         return View::make('login');
     }
 
     public function login(AuthLoginRequest $request) {
+
+        if (Auth::user()) {
+            return Redirect::route('admin.dashboard');
+        }
 
         $credentials = [
           'name' => $request->input('authUsername'),

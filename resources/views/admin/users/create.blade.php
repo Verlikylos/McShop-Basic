@@ -4,13 +4,14 @@
     <h4 class="acp-card-title">
         <i class="fas fa-users"></i> Tworzenie nowego użytkownika ACP
     </h4>
+    <a href="{{ route('admin.users.index') }}" class="btn btn-outline-secondary"><i class="fas fa-times"></i> Anuluj</a>
 @endsection
 
 @section('content')
     <form method="POST" action="{{ route('admin.users.store') }}">
         @csrf
         @method('POST')
-        
+
         <div class="row">
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
@@ -119,7 +120,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <button class="btn btn-success my-5"><i class="fas fa-plus"></i> Dodaj użytkownika</button>
+                <button type="submit" class="btn btn-success my-5"><i class="fas fa-plus"></i> Dodaj użytkownika</button>
             </div>
         </div>
     </form>

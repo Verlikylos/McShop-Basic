@@ -40,7 +40,7 @@ Route::middleware('auth')
     ->group(function () {
         Route::get('/profile', [
             'as' => 'profile',
-            'uses' => 'ProfileController@index'
+            'uses' => 'UserProfileController@index'
         ]);
 
         Route::get('/dashboard', [
@@ -59,7 +59,7 @@ Route::middleware('auth')
                     'as' => 'create',
                     'uses' => 'UsersController@create'
                 ]);
-                Route::post('/new', [
+                Route::post('/store', [
                     'as' => 'store',
                     'uses' => 'UsersController@store'
                 ]);
@@ -87,6 +87,22 @@ Route::middleware('auth')
                 Route::get('/', [
                     'as' => 'index',
                     'uses' => 'ServersController@index'
+                ]);
+                Route::get('/create', [
+                    'as' => 'create',
+                    'uses' => 'ServersController@create'
+                ]);
+                Route::post('/store', [
+                    'as' => 'store',
+                    'uses' => 'ServersController@store'
+                ]);
+                Route::get('/{server}/announcement', [
+                    'as' => 'announcement.show',
+                    'uses' => 'ServersController@show_announcement'
+                ]);
+                Route::patch('/{server}/announcement', [
+                    'as' => 'announcement.update',
+                    'uses' => 'ServersController@update_announcement'
                 ]);
             });
     });

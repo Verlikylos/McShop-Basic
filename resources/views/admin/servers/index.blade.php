@@ -4,7 +4,7 @@
     <h4 class="acp-card-title">
         <i class="fas fa-server"></i> Serwery
     </h4>
-    <a href="" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj serwer</a>
+    <a href="{{ route('admin.servers.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj serwer</a>
 @endsection
 
 @section('content')
@@ -29,14 +29,20 @@
                         <td>{!! $server->getConnectionMethod() == 'api' ? '<span class="badge badge-success">API</span>' : '<span class="badge badge-warning">RCON</span>' !!}</td>
                         <td>
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1" {{ $server->isActive() ? 'checked' : '' }}>
-                                <label class="custom-control-label" for="customSwitch1"></label>
+                                <input type="checkbox" class="custom-control-input" id="{{ 'server' . $server->getId() . 'ActiveSwitch' }}" {{ $server->isActive() ? 'checked' : '' }}>
+                                <label class="custom-control-label" for="{{ 'server' . $server->getId() . 'ActiveSwitch' }}"></label>
                             </div>
                         </td>
                         <td class="td-actions">
-                            <a class="btn btn-primary" href="" data-toggle="tooltip" data-placement="top" title="Zarządzaj ogłoszeniem"><i class="fas fa-bullhorn fa-fw"></i></a>
-                            <a class="btn btn-info" href="" data-toggle="tooltip" data-placement="top" title="Edytuj"><i class="fas fa-edit fa-fw"></i></a>
-                            <a class="btn btn-danger" href="" data-toggle="tooltip" data-placement="top" title="Usuń"><i class="fas fa-times fa-fw"></i></a>
+                            <a class="btn btn-primary" href="{{ route('admin.servers.announcement.show', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Zarządzaj ogłoszeniem">
+                                <i class="fas fa-bullhorn fa-fw"></i>
+                            </a>
+                            <a class="btn btn-info" href="" data-toggle="tooltip" data-placement="top" title="Edytuj">
+                                <i class="fas fa-edit fa-fw"></i>
+                            </a>
+                            <a class="btn btn-danger" href="" data-toggle="tooltip" data-placement="top" title="Usuń">
+                                <i class="fas fa-times fa-fw"></i>
+                            </a>
                         </td>
                     </tr>
                 @endforeach

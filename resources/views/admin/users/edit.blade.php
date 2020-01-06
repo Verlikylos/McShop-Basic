@@ -11,7 +11,7 @@
     <form method="POST" action="{{ route('admin.users.update', $user->getAuthIdentifier()) }}">
         @csrf
         @method('PATCH')
-        
+
         <div class="row">
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
@@ -117,7 +117,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <button class="btn btn-success my-5"><i class="fas fa-check"></i> Zapisz</button>
+                <button type="submit" class="btn btn-success my-5"><i class="fas fa-check"></i> Zapisz</button>
             </div>
         </div>
     </form>

@@ -4,16 +4,16 @@
     <div id="loginBox" class="row">
         <div class="col-12 col-md-6 col-lg-4 mx-auto">
             <h4>Logowanie do ACP</h4>
-            
+
             @error('main')
                 <div class="alert alert-danger my-3" role="alert">
                     {{ $message }}
                 </div>
             @enderror
-    
+
             <form method="POST" action="{{ route('auth.login') }}">
                 @csrf
-                
+
                 <div class="form-group">
                     <label for="authUsername">Login</label>
                     <input type="text" class="form-control @error('authUsername') is-invalid @enderror" id="authUsername" name="authUsername" value="{{ old('authUsername') }}" required>
@@ -34,8 +34,8 @@
                         <label class="custom-control-label" for="authRemember">Zapamiętaj mnie</label>
                     </div>
                 </div>
-        
-                <button class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Zaloguj</button>
+
+                <button type="submit" class="btn btn-success"><i class="fas fa-sign-in-alt"></i> Zaloguj</button>
             </form>
         </div>
     </div>

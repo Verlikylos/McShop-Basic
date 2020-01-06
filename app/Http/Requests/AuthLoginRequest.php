@@ -29,19 +29,4 @@ class AuthLoginRequest extends FormRequest
             'authRemember' => 'nullable'
             ];
     }
-    
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'authUsername.required' => 'To pole jest nie może być puste!',
-            'authUsername.alpha_dash' => 'Login może zawierać tylko znaki alfanumeryczne, myślniki i podkreślenia!',
-            'authPassword.required' => 'To pole jest nie może być puste!',
-            'authPassword.alpha_num' => 'Hasło może zawierać tylko znaki alfanumeryczne!',
-        ];
-    }
 }
