@@ -120,8 +120,6 @@ class UsersController extends Controller
 
     public function delete(User $user)
     {
-
-
         if ($user->getId() === Auth::user()->getId()) {
             return Redirect::route('admin.users.index')->with('sessionMessage', ['type' => 'danger', 'content' => 'Nie możesz usunąć tego użytkownika!']);
         }

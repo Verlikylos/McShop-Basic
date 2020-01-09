@@ -104,5 +104,25 @@ Route::middleware('auth')
                     'as' => 'announcement.update',
                     'uses' => 'ServersController@update_announcement'
                 ]);
+                Route::get('/{server}/toggleActive', [
+                    'as' => 'active.toggle',
+                    'uses' => 'ServersController@toggle_active'
+                ]);
+                Route::get('/{server}/swap/{up}', [
+                    'as' => 'swap',
+                    'uses' => 'ServersController@swap'
+                ]);
+                Route::get('/{server}/edit', [
+                    'as' => 'edit',
+                    'uses' => 'ServersController@edit'
+                ]);
+                Route::patch('/{server}', [
+                    'as' => 'update',
+                    'uses' => 'ServersController@update'
+                ]);
+                Route::get('/{server}/delete', [
+                    'as' => 'delete',
+                    'uses' => 'ServersController@delete'
+                ]);
             });
     });

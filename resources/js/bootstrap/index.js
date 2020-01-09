@@ -11,12 +11,13 @@ import Tab from './tab'
 import Toast from './toast'
 import Tooltip from './tooltip'
 import Util from './util'
-import bsCustomFileInput from 'bs-custom-file-input'
 
 import './app/markdownEditorBootstraper'
 
+import './app/serverActiveStatusButtonHandler'
 import './app/serverConnectionMethodSwitch'
 import './app/serverAnnouncementStatusMessageUpdater'
+import './app/serverDeleteConfirmationModal'
 
 import './vmcshop'
 
@@ -59,7 +60,3 @@ export {
   Tooltip,
   $,
 }
-
-$(document).ready(function () {
-    bsCustomFileInput.init()
-})

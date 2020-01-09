@@ -17,7 +17,7 @@ $factory->define(Server::class, function (Faker $faker) {
 
     return [
         'name' => $sanitizedName,
-        'image_url' => $faker->imageUrl(512, 512, 'cats', true, $sanitizedName),
+        'image_url' => 'https://via.placeholder.com/512x512?text=' . $sanitizedName,
         'display_address' => $nameParts[0] . '.' . $nameParts[1],
         'connection_method' => $connectionMethod,
         'ip_address' => $connectionMethod == 'rcon' ? $faker->ipv4 : null,

@@ -6,10 +6,20 @@ document.addEventListener('DOMContentLoaded', (event) => {
     if (switchInput == null)
         return
 
+    watchInput()
     switchInput.addEventListener('change', watchInput)
 })
 
 const watchInput = () => {
-    apiDiv.classList.toggle('d-none')
-    rconDiv.classList.toggle('d-none')
+    if (switchInput.value == 'api') {
+        if (apiDiv.classList.contains('d-none'))
+            apiDiv.classList.remove('d-none')
+        if (!rconDiv.classList.contains('d-none'))
+            rconDiv.classList.add('d-none')
+    } else {
+        if (!apiDiv.classList.contains('d-none'))
+            apiDiv.classList.add('d-none')
+        if (rconDiv.classList.contains('d-none'))
+            rconDiv.classList.remove('d-none')
+    }
 }

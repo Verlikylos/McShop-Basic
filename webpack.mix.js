@@ -22,6 +22,7 @@ mix
     .options({ processCssUrls: false })
 
     .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
+    .copy(`${PATHS.src}/js/jasny-bootstrap.min.js`, `${PATHS.dist}/js/jasny-bootstrap.min.js`)
 
     .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)
     .sass(`${PATHS.src}/scss/themes/vmcshop/vmcshop.scss`, `${PATHS.dist}/css/themes/vmcshop.min.css`)

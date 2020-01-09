@@ -6,6 +6,9 @@
 
     <link rel="stylesheet" href="{{ mix('/css/themes/vmcshop.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/fontawesome.min.css') }}">
+    @if (isset($withJasnyBootstrap) && $withJasnyBootstrap)
+        <link rel="stylesheet" href="{{ asset('/css/jasny-bootstrap.min.css') }}">
+    @endif
 
     <title>vMCShop Basic - @yield('title')</title>
 </head>
@@ -67,6 +70,11 @@
     </footer>
 </div>
 
+@yield('modals')
+
 <script src="{{ mix('/js/bootstrap.min.js') }}"></script>
+@if (isset($withJasnyBootstrap) && $withJasnyBootstrap)
+    <script src="{{ asset('/js/jasny-bootstrap.min.js') }}"></script>
+@endif
 </body>
 </html>

@@ -15,7 +15,7 @@ interface UserRepositoryInterface
 
     public function new(array $data): User;
 
-    public function update(int $userId, array $data): bool;
+    public function update(int $userId, array $data): int;
 
-    public function delete(int $userId): bool;
+    public function delete(int $userId): int;
 }

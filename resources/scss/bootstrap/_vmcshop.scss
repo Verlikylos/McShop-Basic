@@ -386,3 +386,10 @@ footer {
 .paginated-table-wrapper {
     min-height: 550px;
 }
+
+.server-preview-image {
+    width: 100%;
+    height: auto;
+    border-radius: $border-radius;
+    margin-bottom: .25em;
+}

@@ -8,9 +8,11 @@ use App\Http\Repositories\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class UserRepository implements UserRepositoryInterface
 {
+    protected $table = 'users';
 
     public function all(): Collection
     {
@@ -34,13 +36,13 @@ class UserRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function update(int $userId, array $data): bool
+    public function update(int $userId, array $data): int
     {
-        return User::findOrFail($userId)->update($data);
+        return DB::table($this->table)->where('id', $userId)->update($data);
     }
 
-    public function delete(int $userId): bool
+    public function delete(int $userId): int
     {
-        return User::findOrFail($userId)->delete();
+        return DB::table($this->table)->where('id', $userId)->delete();
     }
 }

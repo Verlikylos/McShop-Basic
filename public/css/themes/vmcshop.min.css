@@ -10562,6 +10562,13 @@ footer .card-body {
   min-height: 550px;
 }
 
+.server-preview-image {
+  width: 100%;
+  height: auto;
+  border-radius: 0.25rem;
+  margin-bottom: 0.25em;
+}
+
 .navbar {
   border-radius: 0.25rem;
 }

@@ -8,13 +8,15 @@ use App\Http\Repositories\Interfaces\ServerRepositoryInterface;
 use App\Models\Server;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class ServerRepository implements ServerRepositoryInterface
 {
+    protected $table = 'servers';
 
     public function all(): Collection
     {
-        return Server::all();
+        return Server::orderByDesc('sort_id')->get();
     }
 
     public function getById(int $id): Server
@@ -31,6 +33,16 @@ class ServerRepository implements ServerRepositoryInterface
         }
     }
 
+    public function getWithLowerSortIdThan($sortId): ?Server
+    {
+        return Server::orderBy('sort_id', 'desc')->where('sort_id', '<', $sortId)->first();
+    }
+
+    public function getWithHigherSortIdThan($sortId): ?Server
+    {
+        return Server::orderBy('sort_id')->where('sort_id', '>', $sortId)->first();
+    }
+
     public function new(array $data): Server
     {
         if (!isset($data['image_url'])) {
@@ -43,13 +55,13 @@ class ServerRepository implements ServerRepositoryInterface
         return $server;
     }
 
-    public function update(int $serverId, array $data): bool
+    public function update(int $serverId, array $data): int
     {
-        return Server::findOrFail($serverId)->update($data);
+        return DB::table($this->table)->where('id', $serverId)->update($data);
     }
 
-    public function delete(int $serverId): bool
+    public function delete(int $serverId): int
     {
-        return Server::findOrFail($serverId)->delete();
+        return DB::table($this->table)->where('id', $serverId)->delete();
     }
 }

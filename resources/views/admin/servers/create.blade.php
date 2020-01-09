@@ -1,4 +1,4 @@
-@extends('admin.components.layout')
+@extends('admin.components.layout', ['withJasnyBootstrap' => true])
 
 @section('acp-card-title')
     <h4 class="acp-card-title">
@@ -29,11 +29,18 @@
                     @enderror
                 </div>
                 <h6 class="mt-1">Obrazek serwera</h6>
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input @error('serverImage') is-invalid @enderror" id="serverImage" name="serverImage"  accept=".jpg,.jpeg,.png">
-                    <label class="custom-file-label" for="serverImage">Wybierz plik...</label>
+                <div class="fileinput fileinput-new w-100" data-provides="fileinput">
+                    <div class="fileinput-preview img-thumbnail server-preview-image" data-trigger="fileinput"></div>
+                    <div>
+                        <span class="btn btn-outline-primary btn-block btn-file">
+                          <span class="fileinput-new">Wybierz obrazek</span>
+                          <span class="fileinput-exists">Zmień obrazek</span>
+                          <input type="file" id="serverImage" name="serverImage" accept=".jpg,.jpeg,.png">
+                        </span>
+                        <a href="#" class="btn btn-outline-danger btn-block fileinput-exists mt-1" data-dismiss="fileinput">Usuń obrazek</a>
+                    </div>
                     @error('serverImage')
-                        <span class="invalid-feedback">{{ $message }}</span>
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="form-group mt-3">

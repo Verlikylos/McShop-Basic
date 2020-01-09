@@ -15,9 +15,13 @@ interface ServerRepositoryInterface
 
     public function getLastSortIndex(): int;
 
+    public function getWithLowerSortIdThan($sortId): ?Server;
+
+    public function getWithHigherSortIdThan($sortId): ?Server;
+
     public function new(array $data): Server;
 
-    public function update(int $serverId, array $data): bool;
+    public function update(int $serverId, array $data): int;
 
-    public function delete(int $serverId): bool;
+    public function delete(int $serverId): int;
 }
