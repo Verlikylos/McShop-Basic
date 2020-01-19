@@ -54,7 +54,7 @@ class ServersController extends Controller
         ];
 
         if ($request->hasFile('serverImage') && $request->file('serverImage')->isValid()) {
-            $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/avatars')));
+            $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/servers')));
         }
 
         $server = $this->serverRepository->new($data);
@@ -154,7 +154,7 @@ class ServersController extends Controller
         ];
 
         if ($request->hasFile('serverImage') && $request->file('serverImage')->isValid()) {
-            $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/avatars')));
+            $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/servers')));
         }
 
         $this->serverRepository->update($server->getId(), $data);
