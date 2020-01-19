@@ -36,7 +36,7 @@
         <div class="nav-item">
             <hr />
         </div>
-        <a class="nav-item nav-link" href="#">
+        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.settings.index' ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
             <i class="fas fa-cogs"></i> Ustawienia strony
         </a>
     </nav>
