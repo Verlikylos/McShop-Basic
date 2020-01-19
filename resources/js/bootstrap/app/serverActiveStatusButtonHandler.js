@@ -9,7 +9,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 })
 
 function makeRequest(el) {
-    console.log(el)
-    console.log(el.dataset.target)
     window.location.assign(el.dataset.target)
 }

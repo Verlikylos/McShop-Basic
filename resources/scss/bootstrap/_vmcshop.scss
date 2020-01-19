@@ -291,13 +291,23 @@ footer {
   @include media-breakpoint-up(md) {
     flex-direction: row;
     justify-content: space-between;
+    height: 61px;
   }
-
-  height: 61px;
 
   margin-bottom: 1rem;
 
   border-bottom: 1px solid $gray-300;
+
+  .custom-select {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    @include media-breakpoint-up(md) {
+      width: 25%;
+      margin: 0;
+    }
+  }
 
   .acp-card-title {
     margin: 0;
@@ -392,4 +402,15 @@ footer {
     height: auto;
     border-radius: $border-radius;
     margin-bottom: .25em;
+}
+
+.settings-card {
+    height: 200px;
+
+    & > .card-body {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
 }

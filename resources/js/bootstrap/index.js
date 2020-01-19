@@ -18,6 +18,7 @@ import './app/serverActiveStatusButtonHandler'
 import './app/serverConnectionMethodSwitch'
 import './app/serverAnnouncementStatusMessageUpdater'
 import './app/serverDeleteConfirmationModal'
+import './app/numbersActiveOperatorSelectHandler'
 
 import './vmcshop'
 

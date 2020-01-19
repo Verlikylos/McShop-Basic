@@ -125,4 +125,21 @@ Route::middleware('auth')
                     'uses' => 'ServersController@delete'
                 ]);
             });
+
+        Route::prefix('settings')
+            ->name('settings.')
+            ->group(function () {
+                Route::get('/', [
+                    'as' => 'index',
+                    'uses' => 'SettingsController@index'
+                ]);
+
+                Route::namespace('Settings')
+                    ->group(function () {
+                        Route::get('/numbers/{operator?}', [
+                            'as' => 'numbers.index',
+                            'uses' => 'SmsNumbersController@index'
+                        ]);
+                    });
+            });
     });

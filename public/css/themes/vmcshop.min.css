@@ -10469,7 +10469,6 @@ footer .card-body {
   -webkit-box-pack: center;
           justify-content: center;
   width: 100%;
-  height: 61px;
   margin-bottom: 1rem;
   border-bottom: 1px solid #dee2e6;
 }
@@ -10480,6 +10479,18 @@ footer .card-body {
             flex-direction: row;
     -webkit-box-pack: justify;
             justify-content: space-between;
+    height: 61px;
+  }
+}
+.acp-card-header .custom-select {
+  width: 100%;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+@media (min-width: 768px) {
+  .acp-card-header .custom-select {
+    width: 25%;
+    margin: 0;
   }
 }
 .acp-card-header .acp-card-title {
@@ -10567,6 +10578,21 @@ footer .card-body {
   height: auto;
   border-radius: 0.25rem;
   margin-bottom: 0.25em;
+}
+
+.settings-card {
+  height: 200px;
+}
+.settings-card > .card-body {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
 }
 
 .navbar {
