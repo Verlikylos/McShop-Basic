@@ -136,6 +136,18 @@ Route::middleware('auth')
 
                 Route::namespace('Settings')
                     ->group(function () {
+                        Route::get('/numbers/create', [
+                            'as' => 'numbers.create',
+                            'uses' => 'SmsNumbersController@create'
+                        ]);
+                        Route::get('/numbers/{number}/delete', [
+                            'as' => 'numbers.delete',
+                            'uses' => 'SmsNumbersController@delete'
+                        ]);
+                        Route::post('/numbers', [
+                            'as' => 'numbers.store',
+                            'uses' => 'SmsNumbersController@store'
+                        ]);
                         Route::get('/numbers/{operator?}', [
                             'as' => 'numbers.index',
                             'uses' => 'SmsNumbersController@index'

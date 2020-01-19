@@ -19,6 +19,7 @@ import './app/serverConnectionMethodSwitch'
 import './app/serverAnnouncementStatusMessageUpdater'
 import './app/serverDeleteConfirmationModal'
 import './app/numbersActiveOperatorSelectHandler'
+import './app/numberBruttoCalculator'
 
 import './vmcshop'
 

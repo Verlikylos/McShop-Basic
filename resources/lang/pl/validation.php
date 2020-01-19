@@ -19,5 +19,6 @@ return [
     'in' => 'Wybrana wartość jest nieprawidłowa.',
     'ipv4' => 'To pole musi zawierać poprawny adres IPv4.',
     'numeric' => 'To pole może zawierać tylko liczbę.',
-    'url' => 'To pole musi zawierać poprawny adres URL.'
+    'url' => 'To pole musi zawierać poprawny adres URL.',
+    'digits_between' => 'To pole musi zawierać od :min do :max cyfr.'
 ];

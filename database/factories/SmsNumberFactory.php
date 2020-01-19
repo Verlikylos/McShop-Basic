@@ -6,7 +6,7 @@ use App\Models\SmsNumber;
 use Faker\Generator as Faker;
 
 $factory->define(SmsNumber::class, function (Faker $faker) {
-    $smsOperators = config('mcshop.sms_operators');
+    $smsOperators = array_keys(config('mcshop.sms_operators'));
     $number = (string) $faker->e164PhoneNumber();
 
     return [

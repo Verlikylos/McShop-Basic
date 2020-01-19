@@ -2,14 +2,14 @@
 
 @section('acp-card-title')
     <h4 class="acp-card-title">
-        <i class="fas fa-cogs"></i> Ustawienia numerów SMS
+        <i class="fas fa-sms"></i> Ustawienia numerów SMS
     </h4>
     <select id="smsNumbersTableActiveOperator" data-target="{{ route('admin.settings.numbers.index') }}" class="custom-select custom-select-sm">
-        @foreach(config('mcshop.sms_operators') as $operator)
-            <option value="{{ $operator }}" {{ $activeOperator == $operator ? 'selected' : '' }}>{{ 'Operator SMS: ' . $operator }}</option>
+        @foreach(config('mcshop.sms_operators') as $key => $value)
+            <option value="{{ $key }}" {{ $activeOperator == $key ? 'selected' : '' }}>{{ 'Operator SMS: ' . $value }}</option>
         @endforeach
     </select>
-    <a href="#" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj numer</a>
+    <a href="{{ route('admin.settings.numbers.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj numer</a>
 @endsection
 
 @section('content')
@@ -30,7 +30,7 @@
                         <td>{{ $number->getNettoCostFormated() }}</td>
                         <td>{{ $number->getBruttoCostFormated() }}</td>
                         <td class="td-actions">
-                            <a class="btn btn-danger" href="#" data-toggle="tooltip" data-placement="top" title="Usuń"><i class="fas fa-times fa-fw"></i></a>
+                            <a class="btn btn-danger" href="{{ route('admin.settings.numbers.delete', $number->getId()) }}" data-toggle="tooltip" data-placement="top" title="Usuń"><i class="fas fa-times fa-fw"></i></a>
                         </td>
                     </tr>
                 @endforeach
