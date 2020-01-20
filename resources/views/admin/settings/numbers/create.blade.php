@@ -47,7 +47,7 @@
         </div>
         <div class="row">
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-success my-5"><i class="fas fa-plus"></i> Dodaj użytkownika</button>
+                <button type="submit" class="btn btn-success my-5"><i class="fas fa-plus"></i> Dodaj numer</button>
             </div>
         </div>
     </form>

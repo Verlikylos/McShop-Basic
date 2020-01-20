@@ -293,5 +293,13 @@ class Server extends Model
     {
         $this->sort_id = $sort_id;
     }
+    
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 
 }

@@ -19,12 +19,15 @@ class CreateServicesTable extends Migration
             $table->unsignedBigInteger('server_id');
             $table->string('image_url');
             $table->text('description');
-            $table->boolean('require_online_player');
+            $table->boolean('requires_online_player');
             $table->text('commands');
-            $table->unsignedBigInteger('smsnumber_id');
+            $table->unsignedBigInteger('smsnumber_id')->nullable(true);
             $table->unsignedBigInteger('psc_cost');
             $table->unsignedBigInteger('transfer_cost');
             $table->unsignedBigInteger('paypal_cost');
+    
+            $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
+            $table->foreign('smsnumber_id')->references('id')->on('sms_numbers')->onDelete('cascade');
         });
     }
 

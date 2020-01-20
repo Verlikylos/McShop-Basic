@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Collection;
 
 /**
  * App\Models\SmsNumber
@@ -19,6 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SmsNumber whereNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SmsNumber whereOperator($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Service[] $services
+ * @property-read int|null $services_count
  */
 class SmsNumber extends Model
 {
@@ -57,21 +61,33 @@ class SmsNumber extends Model
     {
         return round((float) $this->netto_cost / 100, 2);
     }
-
+    
+    /**
+     * @return string
+     */
     public function getNettoCostFormated(): string
     {
         return number_format($this->getNettoCost(), 2, ',', ' ') . ' zł';
     }
-
+    
+    /**
+     * @return float
+     */
     public function getBruttoCost(): float
     {
         return round((float) ($this->netto_cost * 1.23) / 100, 2);
     }
-
+    
+    /**
+     * @return string
+     */
     public function getBruttoCostFormated(): string
     {
         return number_format($this->getBruttoCost(), 2, ',', ' ') . ' zł';
     }
 
-
+    public function services(): HasMany
+    {
+        return $this->hasMany(Service::class, 'smsnumber_id');
+    }
 }
