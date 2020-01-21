@@ -33,6 +33,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Service whereSmsnumberId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Service whereTransferCost($value)
  * @mixin \Eloquent
+ * @property int $active
+ * @property int $sort_id
+ * @property-read \App\Models\Server $server
+ * @property-read \App\Models\SmsNumber|null $smsnumber
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Service whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Service whereSortId($value)
  */
 class Service extends Model
 {
@@ -180,6 +186,40 @@ class Service extends Model
     {
         $this->paypal_cost = $paypal_cost;
     }
+    
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+    
+    /**
+     * @param  bool  $active
+     */
+    public function setActive(bool $active): void
+    {
+        $this->active = $active;
+    }
+    
+    /**
+     * @return int
+     */
+    public function getSortId(): int
+    {
+        return $this->sort_id;
+    }
+    
+    /**
+     * @param  int  $sort_id
+     */
+    public function setSortId(int $sort_id): void
+    {
+        $this->sort_id = $sort_id;
+    }
+    
+    
     
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

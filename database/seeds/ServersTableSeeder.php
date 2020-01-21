@@ -21,7 +21,8 @@ class ServersTableSeeder extends Seeder
             });
         });
 
-        // When generating services Laravel duplicates server records with different ids, so we need to drop them
+        // When generating services Laravel makes also duplicate of related with it server,
+        // but with different id, so we need to drop that duplicates.w
         // Related: https://github.com/laravel/framework/issues/19230
         
         foreach (Server::all() as $server) {

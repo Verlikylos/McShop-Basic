@@ -25,6 +25,8 @@ class CreateServicesTable extends Migration
             $table->unsignedBigInteger('psc_cost');
             $table->unsignedBigInteger('transfer_cost');
             $table->unsignedBigInteger('paypal_cost');
+            $table->boolean('active')->default(true);
+            $table->unsignedInteger('sort_id');
     
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
             $table->foreign('smsnumber_id')->references('id')->on('sms_numbers')->onDelete('cascade');

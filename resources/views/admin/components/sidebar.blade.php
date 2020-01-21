@@ -15,7 +15,7 @@
         <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.servers.index' ? 'active' : '' }}" href="{{ route('admin.servers.index') }}">
             <i class="fas fa-server fa-fw"></i> Serwery
         </a>
-        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.services.index' ? 'active' : '' }}" href="#">
+        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.services.index' ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
             <i class="fas fa-cubes fa-fw"></i> Usługi
         </a>
         <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.vouchers.index' ? 'active' : '' }}" href="#">

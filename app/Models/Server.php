@@ -42,6 +42,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Server whereRconPort($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Server whereSortId($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Service[] $services
+ * @property-read int|null $services_count
  */
 class Server extends Model
 {
@@ -263,17 +265,17 @@ class Server extends Model
     }
 
     /**
-     * @return int
+     * @return bool
      */
-    public function isActive(): int
+    public function isActive(): bool
     {
         return $this->active;
     }
 
     /**
-     * @param  int  $active
+     * @param  bool  $active
      */
-    public function setActive(int $active): void
+    public function setActive(bool $active): void
     {
         $this->active = $active;
     }

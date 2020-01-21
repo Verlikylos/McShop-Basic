@@ -18,9 +18,19 @@ class ServiceRepository implements ServiceRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function orderBySortIdDescAndPaginate(int $itemsPerPage = 10): LengthAwarePaginator
+    public function orderBySortIdDescAndPaginate(int $itemsPerPage = 10, bool $withServers = false, bool $withSmsNumbers = false): LengthAwarePaginator
     {
-        return Service::orderBy('sort_id', 'desc')->paginate($itemsPerPage);
+        $query = Service::orderBy('sort_id', 'desc');
+        
+        if ($withServers) {
+            $query->with('server');
+        }
+        
+        if ($withSmsNumbers) {
+            $query->with('smsnumber');
+        }
+        
+        return $query->paginate($itemsPerPage);
     }
     
     /**

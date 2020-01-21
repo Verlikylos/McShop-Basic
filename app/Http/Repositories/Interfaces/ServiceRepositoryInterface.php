@@ -10,11 +10,17 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface ServiceRepositoryInterface
 {
+    
     /**
      * @param  int  $itemsPerPage
+     *
+     * If true prevents Laravel from lazy-load entity
+     * @param  bool  $withServers
+     * @param  bool  $withSmsNumbers
+     *
      * @return LengthAwarePaginator
      */
-    public function orderBySortIdAndPaginate(int $itemsPerPage = 10): LengthAwarePaginator;
+    public function orderBySortIdDescAndPaginate(int $itemsPerPage = 10, bool $withServers = false, bool $withSmsNumbers = false): LengthAwarePaginator;
     
     /**
      * @return int

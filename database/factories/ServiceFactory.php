@@ -21,5 +21,7 @@ $factory->define(Service::class, function (Faker $faker) {
         'psc_cost' => random_int(0, 100) * 100,
         'transfer_cost' => random_int(0, 100) * 100,
         'paypal_cost' => random_int(0, 100) * 100,
+        'active' => random_int(0, 1),
+        'sort_id' => $faker->unique()->numberBetween(0, 1000)
     ];
 });

@@ -29,6 +29,6 @@ $factory->define(Server::class, function (Faker $faker) {
         'announcement_enabled' => $announcement,
         'announcement_content' => $announcement ? $faker->paragraph() : null,
         'active' => random_int(0, 1),
-        'sort_id' => random_int(0, 1000),
+        'sort_id' => $faker->unique()->numberBetween(0, 1000),
     ];
 });

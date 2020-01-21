@@ -125,6 +125,15 @@ Route::middleware('auth')
                     'uses' => 'ServersController@delete'
                 ]);
             });
+    
+        Route::prefix('services')
+            ->name('services.')
+            ->group(function () {
+                Route::get('/', [
+                    'as' => 'index',
+                    'uses' => 'ServicesController@index'
+                ]);
+            });
 
         Route::prefix('settings')
             ->name('settings.')
