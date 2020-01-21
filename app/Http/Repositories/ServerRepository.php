@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\DB;
 
 class ServerRepository implements ServerRepositoryInterface
 {
-    protected $table = 'servers';
+    private $table = 'servers';
 
     public function all(): Collection
     {
-        return Server::orderByDesc('sort_id')->get();
+        return Server::orderBy('sort_id', 'desc')->get();
     }
 
     public function getById(int $id): Server

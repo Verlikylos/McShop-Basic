@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class SmsNumberRepository implements SmsNumberRepositoryInterface
 {
-    protected $table = 'sms_numbers';
+    private $table = 'sms_numbers';
 
     public function paginateWhereOperatorIs(string $operator): LengthAwarePaginator
     {

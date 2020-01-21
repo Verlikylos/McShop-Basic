@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class UserRepository implements UserRepositoryInterface
 {
-    protected $table = 'users';
+    private $table = 'users';
 
     public function all(): Collection
     {
