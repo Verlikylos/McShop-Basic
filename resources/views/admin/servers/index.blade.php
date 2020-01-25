@@ -58,7 +58,7 @@
                             <a class="btn btn-info" href="{{ route('admin.servers.edit', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Edytuj">
                                 <i class="fas fa-edit fa-fw"></i>
                             </a>
-                            <button class="btn btn-danger server-delete-btn" data-server-name="{{ $server->getName() . ' (ID: #' . $server->getId() . ')' }}" data-href="{{ route('admin.servers.delete', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Usuń">
+                            <button class="btn btn-danger entity-delete-btn" data-entity-name="{{ $server->getName() . ' (ID: #' . $server->getId() . ')' }}" data-target="{{ route('admin.servers.delete', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Usuń">
                                 <i class="fas fa-times fa-fw"></i>
                             </button>
                         </td>
@@ -72,26 +72,5 @@
 @endsection
 
 @section('modals')
-    <div class="modal fade" id="serverDeleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="serverDeleteConfirmationModalTitle" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="serverDeleteConfirmationModalTitle">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        Potwierdź usunięcie serwera <span class="server-modal-delete-server-name-variable font-weight-bold"></span>!
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Usunięcie tego serwera spowoduje również usunięcie wszelkich usług, voucherów oraz historii zakupów z nim powiązanych! Operacji tej nie można później cofnąć.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuluj</button>
-                    <a id="modalServerDeleteBtnElement" class="btn btn-danger">Tak, usuń serwer <span class="server-modal-delete-server-name-variable font-weight-bold"></span>!</a>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('admin.components.entity_delete_confirmation_modal')
 @endsection
