@@ -397,7 +397,7 @@ footer {
     min-height: 550px;
 }
 
-.server-preview-image {
+.server-preview-image, .service-preview-image {
     width: 100%;
     height: auto;
     border-radius: $border-radius;
@@ -413,4 +413,19 @@ footer {
         align-items: flex-start;
         justify-content: space-between;
     }
+}
+
+.service-card {
+  min-height: 437px;
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &.card-img-left {
+    min-height: 244px;
+  }
 }

@@ -27,7 +27,8 @@ class ServersController extends Controller
 
     public function index()
     {
-        $servers = Server::orderByDesc('sort_id')->paginate(10);
+        // TODO Use repositories instead of inline queries in all controllers
+        $servers = Server::orderBy('sort_id')->paginate(10);
 
         return View::make('admin.servers.index')->with(['servers' => $servers, 'serversCount' => count($servers)]);
     }
@@ -41,6 +42,7 @@ class ServersController extends Controller
     {
         $data = [
             'name' => $request->get('serverName'),
+            'slug' => str_replace('+', '-', strtolower(urlencode($request->get('serverName')))),
             'display_address' => $request->get('serverDisplayAddress'),
             'connection_method' => $request->get('serverConnectionMethod'),
             'ip_address' => $request->get('serverIpAddress'),
@@ -143,6 +145,7 @@ class ServersController extends Controller
     {
         $data = [
             'name' => $request->get('serverName'),
+            'slug' => str_replace('+', '-', strtolower(urlencode($request->get('serverName')))),
             'display_address' => $request->get('serverDisplayAddress'),
             'connection_method' => $request->get('serverConnectionMethod'),
             'ip_address' => $request->get('serverIpAddress'),

@@ -16,6 +16,7 @@ class CreateServersTable extends Migration
         Schema::create('servers', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->string('image_url');
             $table->string('display_address');
             $table->enum('connection_method', ['rcon', 'api']);

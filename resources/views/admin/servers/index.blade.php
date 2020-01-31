@@ -34,31 +34,31 @@
                         <td>{!! $server->getConnectionMethod() == 'api' ? '<span class="badge badge-success">API</span>' : '<span class="badge badge-warning">RCON</span>' !!}</td>
                         <td class="td-actions">
                             @if (!(($servers->currentPage() == 1) && ($server->getId() == $servers->first()->getId())))
-                                <a class="btn btn-primary" href="{{ route('admin.servers.swap', ['server' => $server->getId(), 'up' => 1]) }}" data-toggle="tooltip" data-placement="top" title="Przesuń w górę">
+                                <a class="btn btn-primary" href="{{ route('admin.servers.swap', ['server' => $server->getSlug(), 'up' => 1]) }}" data-toggle="tooltip" data-placement="top" title="Przesuń w górę">
                                     <i class="fas fa-chevron-up fa-fw"></i>
                                 </a>
                             @endif
 
                             @if (!(($servers->currentPage() == $servers->lastPage()) && ($server->getId() == $servers->last()->getId())))
-                                <a class="btn btn-primary" href="{{ route('admin.servers.swap', ['server' => $server->getId(), 'up' => 0]) }}" data-toggle="tooltip" data-placement="top" title="Przesuń w dół">
+                                <a class="btn btn-primary" href="{{ route('admin.servers.swap', ['server' => $server->getSlug(), 'up' => 0]) }}" data-toggle="tooltip" data-placement="top" title="Przesuń w dół">
                                     <i class="fas fa-chevron-down fa-fw"></i>
                                 </a>
                             @endif
                         </td>
                         <td>
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input serverActiveStatusSwitch" id="{{ 'server' . $server->getId() . 'ActiveSwitch' }}" data-target="{{ route('admin.servers.active.toggle', $server->getId()) }}" {{ $server->isActive() ? 'checked' : '' }}>
+                                <input type="checkbox" class="custom-control-input entityActiveStatusSwitch" id="{{ 'server' . $server->getId() . 'ActiveSwitch' }}" data-target="{{ route('admin.servers.active.toggle', $server->getSlug()) }}" {{ $server->isActive() ? 'checked' : '' }}>
                                 <label class="custom-control-label" for="{{ 'server' . $server->getId() . 'ActiveSwitch' }}"></label>
                             </div>
                         </td>
                         <td class="td-actions">
-                            <a class="btn btn-primary" href="{{ route('admin.servers.announcement.show', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Zarządzaj ogłoszeniem">
+                            <a class="btn btn-primary" href="{{ route('admin.servers.announcement.show', $server->getSlug()) }}" data-toggle="tooltip" data-placement="top" title="Zarządzaj ogłoszeniem">
                                 <i class="fas fa-bullhorn fa-fw"></i>
                             </a>
-                            <a class="btn btn-info" href="{{ route('admin.servers.edit', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Edytuj">
+                            <a class="btn btn-info" href="{{ route('admin.servers.edit', $server->getSlug()) }}" data-toggle="tooltip" data-placement="top" title="Edytuj">
                                 <i class="fas fa-edit fa-fw"></i>
                             </a>
-                            <button class="btn btn-danger entity-delete-btn" data-entity-name="{{ $server->getName() . ' (ID: #' . $server->getId() . ')' }}" data-target="{{ route('admin.servers.delete', $server->getId()) }}" data-toggle="tooltip" data-placement="top" title="Usuń">
+                            <button class="btn btn-danger entity-delete-btn" data-entity-name="{{ $server->getName() . ' (ID: #' . $server->getId() . ')' }}" data-target="{{ route('admin.servers.delete', $server->getSlug()) }}" data-toggle="tooltip" data-placement="top" title="Usuń">
                                 <i class="fas fa-times fa-fw"></i>
                             </button>
                         </td>

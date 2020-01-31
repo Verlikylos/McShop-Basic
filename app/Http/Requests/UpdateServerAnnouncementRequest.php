@@ -24,7 +24,7 @@ class UpdateServerAnnouncementRequest extends FormRequest
     public function rules()
     {
         return [
-            'serverAnnouncementEnabled' => 'filled'
+            'serverAnnouncementEnabled' => 'nullable'
         ];
     }
 }

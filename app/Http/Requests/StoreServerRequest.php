@@ -29,11 +29,11 @@ class StoreServerRequest extends FormRequest
                 'required',
                 'regex:/^[a-zA-Z0-9\-\_\.\ ]+$/',
                 'min:2',
-                'max:50',
+                'max:36',
                 'unique:servers,name'
             ],
             'serverImage' => [
-                'dimensions:min_width:256,min_height:256,ratio:1/1',
+                Rule::dimensions()->minWidth(256)->minHeight(256)->ratio(1.0),
                 'mimes:jpg,jpeg,png'
             ],
             'serverDisplayAddress' => [

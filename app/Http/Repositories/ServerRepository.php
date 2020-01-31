@@ -13,10 +13,22 @@ use Illuminate\Support\Facades\DB;
 class ServerRepository implements ServerRepositoryInterface
 {
     private $table = 'servers';
-
+    
+    public function getFirstServer(bool $withServices = false): Server
+    {
+        $server = Server::orderBy('sort_id')->first();
+        
+        if ($withServices) {
+            $server->with('services');
+        }
+        
+        return $server;
+    }
+    
+    
     public function all(): Collection
     {
-        return Server::orderBy('sort_id', 'desc')->get();
+        return Server::orderBy('sort_id')->get();
     }
 
     public function getById(int $id): Server

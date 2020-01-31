@@ -78,6 +78,14 @@ class Service extends Model
     /**
      * @return string
      */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+    
+    /**
+     * @return string
+     */
     public function getImageUrl(): string
     {
         return $this->image_url;
@@ -140,27 +148,27 @@ class Service extends Model
     }
     
     /**
-     * @return int
+     * @return float
      */
-    public function getPscCost(): int
+    public function getPscCost(): float
     {
-        return $this->psc_cost;
+        return round((float) $this->psc_cost / 100, 2);
     }
     
     /**
-     * @param  int  $psc_cost
+     * @param  float  $psc_cost
      */
-    public function setPscCost(int $psc_cost): void
+    public function setPscCost(float $psc_cost): void
     {
-        $this->psc_cost = $psc_cost;
+        $this->psc_cost = intval($psc_cost * 100);
     }
     
     /**
-     * @return int
+     * @return float
      */
-    public function getTransferCost(): int
+    public function getTransferCost(): float
     {
-        return $this->transfer_cost;
+        return round((float) $this->transfer_cost / 100, 2);
     }
     
     /**
@@ -168,15 +176,15 @@ class Service extends Model
      */
     public function setTransferCost(int $transfer_cost): void
     {
-        $this->transfer_cost = $transfer_cost;
+        $this->transfer_cost = intval($transfer_cost * 100);
     }
     
     /**
-     * @return int
+     * @return float
      */
-    public function getPaypalCost(): int
+    public function getPaypalCost(): float
     {
-        return $this->paypal_cost;
+        return round((float) $this->paypal_cost / 100, 2);
     }
     
     /**
@@ -184,7 +192,7 @@ class Service extends Model
      */
     public function setPaypalCost(int $paypal_cost): void
     {
-        $this->paypal_cost = $paypal_cost;
+        $this->paypal_cost = intval($paypal_cost * 100);
     }
     
     /**
@@ -254,9 +262,9 @@ class Service extends Model
     }
     
     /**
-     * @return SmsNumber
+     * @return SmsNumber|null
      */
-    public function getSmsNumber(): SmsNumber
+    public function getSmsNumber(): ?SmsNumber
     {
         return $this->smsnumber;
     }
@@ -267,5 +275,49 @@ class Service extends Model
     public function setSmsNumber(SmsNumber $number): void
     {
         $this->smsnumber = $number;
+    }
+    
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+    
+    public function getAvailablePaymentBadges(): array
+    {
+        $badges = [];
+        
+        if ($this->getSmsNumber() != null) {
+            $badges[] = $this->makeBadge('sms');
+        }
+        
+        if ($this->getPscCost() > 0) {
+            $badges[] = $this->makeBadge('psc');
+        }
+        
+        if ($this->getTransferCost() > 0) {
+            $badges[] = $this->makeBadge('transfer');
+        }
+        
+        if ($this->getPaypalCost() > 0) {
+            $badges[] = $this->makeBadge('paypal');
+        }
+        
+        return $badges;
+    }
+    
+    private function makeBadge($payment = 'sms'): ?string
+    {
+        $paymentMethods = config('mcshop.payment_methods');
+        
+        if (!in_array($payment, array_keys($paymentMethods))) {
+            return null;
+        }
+        
+        return '<span class="badge badge-' . $paymentMethods[$payment]['color'] . '">' . $paymentMethods[$payment]['displayname'] . '</span>';
     }
 }

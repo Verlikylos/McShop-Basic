@@ -18,8 +18,10 @@ import './app/serverActiveStatusButtonHandler'
 import './app/serverConnectionMethodSwitch'
 import './app/serverAnnouncementStatusMessageUpdater'
 import './app/serverDeleteConfirmationModal'
-import './app/numbersActiveOperatorSelectHandler'
+import './app/entityActiveFilterSelectHandler'
 import './app/numberBruttoCalculator'
+import './app/serviceCommandsDynamicInput'
+import './app/checkboxSectionCollapse'
 
 import './vmcshop'
 

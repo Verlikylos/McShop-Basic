@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <form method="POST" action="{{ route('admin.servers.update', $server->getId()) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('admin.servers.update', $server->getSlug()) }}" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 

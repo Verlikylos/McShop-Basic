@@ -12,6 +12,7 @@ $factory->define(Service::class, function (Faker $faker) {
     
     return [
         'name' => $name,
+        'slug' => str_replace('+', '-', strtolower(urlencode($name))),
         'server_id' => factory(Server::class),
         'image_url' => 'https://via.placeholder.com/512x512?text=' . $name,
         'description' => $faker->paragraph(10),

@@ -11,11 +11,6 @@
 |
 */
 
-Route::get('/', [
-    'as' => 'home',
-    'uses' => 'HomeController@index'
-]);
-
 Route::get('/service', [
     'as' => 'service',
     'uses' => 'ServiceController@index'
@@ -129,7 +124,35 @@ Route::middleware('auth')
         Route::prefix('services')
             ->name('services.')
             ->group(function () {
-                Route::get('/', [
+                Route::get('/create', [
+                    'as' => 'create',
+                    'uses' => 'ServicesController@create'
+                ]);
+                Route::post('/store', [
+                    'as' => 'store',
+                    'uses' => 'ServicesController@store'
+                ]);
+                Route::get('/{service}/toggleActive', [
+                    'as' => 'active.toggle',
+                    'uses' => 'ServicesController@toggle_active'
+                ]);
+                Route::get('/{service}/swap/{up}', [
+                    'as' => 'swap',
+                    'uses' => 'ServicesController@swap'
+                ]);
+                Route::get('/{service}/edit', [
+                    'as' => 'edit',
+                    'uses' => 'ServicesController@edit'
+                ]);
+                Route::patch('/{service}', [
+                    'as' => 'update',
+                    'uses' => 'ServicesController@update'
+                ]);
+                Route::get('/{service}/delete', [
+                    'as' => 'delete',
+                    'uses' => 'ServicesController@delete'
+                ]);
+                Route::get('/{server?}', [
                     'as' => 'index',
                     'uses' => 'ServicesController@index'
                 ]);
@@ -164,3 +187,8 @@ Route::middleware('auth')
                     });
             });
     });
+
+Route::get('/{server?}', [
+    'as' => 'home',
+    'uses' => 'HomeController@index'
+]);

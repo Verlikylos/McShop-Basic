@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-  const switches = Array.from(document.getElementsByClassName('serverActiveStatusSwitch'))
+import $ from 'jquery'
 
-  switches.map((el, index) => {
-      if (el != null) {
-          el.addEventListener('change', () => makeRequest(el))
-      }
-  })
+const switches = $('input.entityActiveStatusSwitch[type="checkbox"][data-target]')
+
+switches.each(function () {
+    $(this).on('change', function () {
+        makeRequest($(this))
+    })
 })
 
 function makeRequest(el) {
-    window.location.assign(el.dataset.target)
+    window.location.assign(el.data('target'))
 }

@@ -13,7 +13,12 @@ use Illuminate\Support\Facades\DB;
 class SmsNumberRepository implements SmsNumberRepositoryInterface
 {
     private $table = 'sms_numbers';
-
+    
+    public function all(): Collection
+    {
+        return SmsNumber::all();
+    }
+    
     public function paginateWhereOperatorIs(string $operator): LengthAwarePaginator
     {
         return SmsNumber::where('operator', $operator)->paginate(10);

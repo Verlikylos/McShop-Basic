@@ -33,7 +33,7 @@ class UpdateServerRequest extends FormRequest
                 Rule::unique('servers', 'id')->ignore(request()->get('server'))
             ],
             'serverImage' => [
-                'dimensions:min_width:256,min_height:256,ratio:1/1',
+                Rule::dimensions()->minWidth(256)->minHeight(256)->ratio(1.0),
                 'mimes:jpg,jpeg,png'
             ],
             'serverDisplayAddress' => [

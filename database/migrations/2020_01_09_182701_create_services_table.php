@@ -16,15 +16,16 @@ class CreateServicesTable extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
+            $table->string('slug')->unique();
             $table->unsignedBigInteger('server_id');
             $table->string('image_url');
             $table->text('description');
-            $table->boolean('requires_online_player');
+            $table->boolean('requires_online_player')->default(false);
             $table->text('commands');
             $table->unsignedBigInteger('smsnumber_id')->nullable(true);
-            $table->unsignedBigInteger('psc_cost');
-            $table->unsignedBigInteger('transfer_cost');
-            $table->unsignedBigInteger('paypal_cost');
+            $table->unsignedBigInteger('psc_cost')->nullable();
+            $table->unsignedBigInteger('transfer_cost')->nullable();
+            $table->unsignedBigInteger('paypal_cost')->nullable();
             $table->boolean('active')->default(true);
             $table->unsignedInteger('sort_id');
     

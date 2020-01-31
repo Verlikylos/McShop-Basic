@@ -17,6 +17,7 @@ $factory->define(Server::class, function (Faker $faker) {
 
     return [
         'name' => $sanitizedName,
+        'slug' => str_replace('+', '-', strtolower(urlencode($sanitizedName))),
         'image_url' => 'https://via.placeholder.com/512x512?text=' . $sanitizedName,
         'display_address' => $nameParts[0] . '.' . $nameParts[1],
         'connection_method' => $connectionMethod,

@@ -65,7 +65,7 @@ class SmsNumber extends Model
     /**
      * @return string
      */
-    public function getNettoCostFormated(): string
+    public function getNettoCostFormatted(): string
     {
         return number_format($this->getNettoCost(), 2, ',', ' ') . ' zł';
     }
@@ -81,7 +81,7 @@ class SmsNumber extends Model
     /**
      * @return string
      */
-    public function getBruttoCostFormated(): string
+    public function getBruttoCostFormatted(): string
     {
         return number_format($this->getBruttoCost(), 2, ',', ' ') . ' zł';
     }

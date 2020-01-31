@@ -6,21 +6,17 @@ namespace App\Http\Repositories\Interfaces;
 
 use App\Models\Server;
 use App\Models\Service;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface ServiceRepositoryInterface
 {
     
     /**
+     * @param  Server  $server
      * @param  int  $itemsPerPage
-     *
-     * If true prevents Laravel from lazy-load entity
-     * @param  bool  $withServers
-     * @param  bool  $withSmsNumbers
-     *
      * @return LengthAwarePaginator
      */
-    public function orderBySortIdDescAndPaginate(int $itemsPerPage = 10, bool $withServers = false, bool $withSmsNumbers = false): LengthAwarePaginator;
+    public function paginateServerServices(Server $server, int $itemsPerPage = 10): LengthAwarePaginator;
     
     /**
      * @return int
@@ -28,16 +24,16 @@ interface ServiceRepositoryInterface
     public function getLastSortIndex(): int;
     
     /**
-     * @param $sortId
+     * @param Service $service
      * @return Service|null
      */
-    public function getWithLowerSortIdThan($sortId): ?Service;
+    public function getWithLowerSortIdThan(Service $service): ?Service;
     
     /**
-     * @param $sortId
+     * @param Service $service
      * @return Service|null
      */
-    public function getWithHigherSortIdThan($sortId): ?Service;
+    public function getWithHigherSortIdThan(Service $service): ?Service;
     
     /**
      * @param  array  $data
@@ -46,15 +42,15 @@ interface ServiceRepositoryInterface
     public function new(array $data): Service;
     
     /**
-     * @param  Server  $server
+     * @param  Service  $service
      * @param  array  $data
      * @return int
      */
-    public function update(Server $server, array $data): int;
+    public function update(Service $service, array $data): int;
     
     /**
-     * @param  Server  $server
+     * @param  Service  $service
      * @return int
      */
-    public function delete(Server $server): int;
+    public function delete(Service $service): int;
 }

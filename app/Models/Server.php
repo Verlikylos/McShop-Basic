@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -78,6 +79,14 @@ class Server extends Model
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
     }
 
     /**
@@ -302,6 +311,26 @@ class Server extends Model
     public function services()
     {
         return $this->hasMany(Service::class);
+    }
+    
+    /**
+     * @return Service[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getServices(): Collection
+    {
+        // TODO change $server->services() to $server->getServices() everywhere
+        
+        return $this->services;
+    }
+    
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 
 }

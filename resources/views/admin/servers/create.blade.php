@@ -49,7 +49,7 @@
                         <option value="api" {{ old('serverConnectionMethod') === 'api' ? 'selected' : '' }}>REST API</option>
                         <option value="rcon" {{ old('serverConnectionMethod') === 'rcon' ? 'selected' : '' }}>RCON</option>
                     </select>
-                    @error('serverImage')
+                    @error('serverConnectionMethod')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>

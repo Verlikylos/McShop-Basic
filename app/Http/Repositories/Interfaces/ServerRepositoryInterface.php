@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 
 interface ServerRepositoryInterface
 {
+    public function getFirstServer(bool $withServices = false): Server;
+    
     public function all(): Collection;
 
     public function getById(int $id): Server;

@@ -20,6 +20,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
 })
 
 function updateLabel() {
-    console.info(label.toString())
-    label.innerHTML = announcementEnabledSwitch.checked ? 'Ogłoszenie aktywne&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : 'Ogłoszenie nieaktywne'
+    label.innerHTML = announcementEnabledSwitch.checked ? 'Ogłoszenie aktywne' : 'Ogłoszenie nieaktywne'
 }

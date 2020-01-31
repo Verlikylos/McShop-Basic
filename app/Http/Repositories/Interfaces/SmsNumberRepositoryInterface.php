@@ -10,6 +10,8 @@ use Illuminate\Support\Collection;
 
 interface SmsNumberRepositoryInterface
 {
+    public function all(): Collection;
+    
     public function paginateWhereOperatorIs(string $operator): LengthAwarePaginator;
     
     public function new(array $data): SmsNumber;
