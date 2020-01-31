@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withJasnyBootstrap' => true])
 
+@section('title', 'Edycja usługi ' . $service->getName())
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-edit"></i> Edycja usługi <span class="font-weight-bold">{{ $service->getName() . ' (ID: #' . $service->getId() . ')' }}</span>
@@ -54,8 +56,8 @@
             </div>
             
             <div class="col-12">
-                <div id="serviceDescriptionEditor">{{ old('serviceDescription') ?? $service->getDescription() }}</div>
-                <input type="hidden" id="serviceDescription" name="serviceDescription">
+                <div id="serviceDescriptionEditor"></div>
+                <input type="hidden" id="serviceDescription" name="serviceDescription" value="{{ old('serviceDescription') ?? $service->getDescription() }}">
             </div>
             
             <div class="col-12">
@@ -162,7 +164,7 @@
                 </div>
             </div>
             <div class="col-12 text-center">
-                <button type="submit" class="btn btn-success my-5"><i class="fas fa-plus"></i> Zapisz zmiany</button>
+                <button type="submit" class="btn btn-success my-5"><i class="fas fa-check"></i> Zapisz zmiany</button>
             </div>
         </div>
     </form>

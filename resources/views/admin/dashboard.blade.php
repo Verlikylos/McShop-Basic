@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Dashboard')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-desktop"></i> Pulpit

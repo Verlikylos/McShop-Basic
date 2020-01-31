@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Dodawanie numeru SMS')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-sms"></i> Dodawanie numeru SMS

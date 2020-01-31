@@ -12,6 +12,7 @@ import Toast from './toast'
 import Tooltip from './tooltip'
 import Util from './util'
 
+import './app/dynamicSidebarServerStatus'
 import './app/markdownEditorBootstraper'
 
 import './app/serverActiveStatusButtonHandler'

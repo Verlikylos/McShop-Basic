@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withJasnyBootstrap' => true])
 
+@section('title', 'Tworzenie nowej usługi')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-cubes"></i> Tworzenie nowej usługi
@@ -51,8 +53,8 @@
             </div>
             
             <div class="col-12">
-                <div id="serviceDescriptionEditor">{{ old('serviceDescription') }}</div>
-                <input type="hidden" id="serviceDescription" name="serviceDescription">
+                <div id="serviceDescriptionEditor"></div>
+                <input type="hidden" id="serviceDescription" name="serviceDescription" value="{{ old('serviceDescription') }}">
             </div>
             
             <div class="col-12">

@@ -107,6 +107,11 @@ class Service extends Model
         return $this->description;
     }
     
+    public function getFormattedDescription(): string
+    {
+        return app(\Parsedown::class)->setSafeMode(true)->text($this->description);
+    }
+    
     /**
      * @param  string  $description
      */
@@ -155,6 +160,11 @@ class Service extends Model
         return round((float) $this->psc_cost / 100, 2);
     }
     
+    public function getPscCostFormatted(): string
+    {
+        return number_format($this->getPscCost(), 2, ',', ' ') . ' zł';
+    }
+    
     /**
      * @param  float  $psc_cost
      */
@@ -171,6 +181,11 @@ class Service extends Model
         return round((float) $this->transfer_cost / 100, 2);
     }
     
+    public function getTransferCostFormatted(): string
+    {
+        return number_format($this->getTransferCost(), 2, ',', ' ') . ' zł';
+    }
+    
     /**
      * @param  int  $transfer_cost
      */
@@ -185,6 +200,11 @@ class Service extends Model
     public function getPaypalCost(): float
     {
         return round((float) $this->paypal_cost / 100, 2);
+    }
+    
+    public function getPaypalCostFormatted(): string
+    {
+        return number_format($this->getPaypalCost(), 2, ',', ' ') . ' zł';
     }
     
     /**

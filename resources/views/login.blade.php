@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withoutSidebar' => true])
 
+@section('title', 'Logowanie do ACP')
+
 @section('content')
     <div id="loginBox" class="row">
         <div class="col-12 col-md-6 col-lg-4 mx-auto">

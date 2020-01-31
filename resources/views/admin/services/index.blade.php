@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Usługi z serwera ' . $activeServer->getName())
+
 @section('acp-card-title')
     <div class="d-flex flex-row w-75">
         <h4 class="acp-card-title">

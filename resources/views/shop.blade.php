@@ -1,8 +1,19 @@
 @extends('components.layout')
 
+@section('title', 'Sklep serwera ' . $server->getName())
+
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">McShop.io</a></li>
     <li class="breadcrumb-item active" aria-current="page">Sklep serwera {{ $server->getName() }}</li>
+@endsection
+
+@section('announcement')
+    @if ($server->isAnnouncementEnabled())
+        <div class="card shadow mt-3">
+            <div class="card-body">
+                {!! $server->getAnnouncementContentFormatted() !!}
+            </div>
+        </div>
+    @endif
 @endsection
 
 @section('content')
@@ -16,7 +27,7 @@
                     </div>
                     <div class="row">
                         @foreach ($services as $service)
-                            @include('components.vertical_service_card', $service)
+                            @include('components.vertical_service_card', [$service, $server])
                         @endforeach
                     </div>
     
@@ -25,7 +36,7 @@
             </div>
         </div>
         <div class="col-12 col-lg-4">
-            @include('components.sidebar')
+            @include('components.sidebar', $server)
         </div>
     </div>
 @endsection

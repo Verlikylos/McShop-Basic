@@ -146,10 +146,6 @@
     }
   }
 
-  .card-horizontal-footer {
-    margin-top: 1rem;
-  }
-
   @include media-breakpoint-up(lg) {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -161,8 +157,6 @@
 
     .card-horizontal-footer {
       width: 100%;
-
-      margin-top: 2rem;
 
       text-align: right;
     }

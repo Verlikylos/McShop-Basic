@@ -13,4 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::namespace('Api')
+    ->name('api.')
+    ->group(function () {
+       Route::get('/servers/{server}/status', [
+           'as' => 'servers.status',
+           'uses' => 'ServersController@status'
+        ]);
+});
+
 

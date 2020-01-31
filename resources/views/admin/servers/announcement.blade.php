@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withEditorStyles' => true])
 
+@section('title', 'Ogłoszenie serwera ' . $server->getName())
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-bullhorn"></i> Ogłoszenie serwera <span class="font-weight-bold">{{ $server->getName() }} (ID: #{{ $server->getId() }})</span>
@@ -14,8 +16,8 @@
 
         <div class="row">
             <div class="col-12 mx-auto">
-                <div id="serverAnnouncementEditor">{{ $server->getAnnouncementContent() }}</div>
-                <input type="hidden" id="serverAnnouncementContent" name="serverAnnouncementContent">
+                <div id="serverAnnouncementEditor"></div>
+                <input type="hidden" id="serverAnnouncementContent" name="serverAnnouncementContent" value="{{ $server->getAnnouncementContent() }}">
     
                 <div class="custom-control custom-switch text-center mt-3">
                     <input type="checkbox" class="custom-control-input" id="serverAnnouncementEnabled" name="serverAnnouncementEnabled" {{ $server->isAnnouncementEnabled() ? 'checked' : '' }}>

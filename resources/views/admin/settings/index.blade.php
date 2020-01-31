@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Ustawienia strony')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-cogs"></i> Ustawienia strony
@@ -16,7 +18,7 @@
                     Ogólne
                 </h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('admin.settings.general.index') }}" class="btn btn-primary">
                     Przejdź
                     <i class="fas fa-chevron-right ml-1"></i>
                 </a>
@@ -76,7 +78,7 @@
                     Wygląd
                 </h5>
                 <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">
+                <a href="{{ route('admin.settings.layout.index') }}" class="btn btn-primary">
                     Przejdź
                     <i class="fas fa-chevron-right ml-1"></i>
                 </a>

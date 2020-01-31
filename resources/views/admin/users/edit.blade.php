@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Edycja użytkownika ' . $user->getName())
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-edit"></i> Edycja użytkownika {{ $user->getName() . ' (ID: #' . $user->getAuthIdentifier() . ')' }}

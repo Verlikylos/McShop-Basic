@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withJasnyBootstrap' => true])
 
+@section('title', 'Edycja serwera ' . $server->getName())
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-edit"></i> Edycja serwera <span class="font-weight-bold">{{ $server->getName() . ' (ID: #' . $server->getId() . ')' }}</span>
@@ -68,7 +70,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="serverPort">Port serwera</label>
+                        <label for="serverPort">Port Query serwera</label>
                         <input type="text" class="form-control @error('serverPort') is-invalid @enderror" id="serverPort" name="serverPort" value="{{ old('serverPort') ?? $server->getPort() }}">
                         @error('serverPort')
                             <span class="invalid-feedback">{{ $message }}</span>

@@ -1,5 +1,7 @@
 @extends('admin.components.layout', ['withJasnyBootstrap' => true])
 
+@section('title', 'Tworzenie nowego serwera')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-server"></i> Tworzenie nowego serwera
@@ -62,7 +64,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="serverPort">Port serwera</label>
+                        <label for="serverPort">Port Query serwera</label>
                         <input type="text" class="form-control @error('serverPort') is-invalid @enderror" id="serverPort" name="serverPort" value="{{ old('serverPort') }}">
                         @error('serverPort')
                             <span class="invalid-feedback">{{ $message }}</span>

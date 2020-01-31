@@ -14,9 +14,10 @@ interface ServiceRepositoryInterface
     /**
      * @param  Server  $server
      * @param  int  $itemsPerPage
+     * @param  bool $withNumbers
      * @return LengthAwarePaginator
      */
-    public function paginateServerServices(Server $server, int $itemsPerPage = 10): LengthAwarePaginator;
+    public function paginateServerServices(Server $server, int $itemsPerPage = 10, bool $withNumbers = false): LengthAwarePaginator;
     
     /**
      * @return int

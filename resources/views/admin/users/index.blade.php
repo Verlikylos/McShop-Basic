@@ -1,5 +1,7 @@
 @extends('admin.components.layout')
 
+@section('title', 'Użytkownicy ACP')
+
 @section('acp-card-title')
     <h4 class="acp-card-title">
         <i class="fas fa-users"></i> Użytkownicy ACP

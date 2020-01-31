@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use xPaw\MinecraftQuery;
+use xPaw\MinecraftQueryException;
 
 
 /**
@@ -260,7 +263,7 @@ class Server extends Model
     /**
      * @return string|null
      */
-    public function getMarkdownedAnnouncementContet(): ?string
+    public function getAnnouncementContentFormatted(): ?string
     {
         return app(\Parsedown::class)->setSafeMode(true)->text($this->announcement_content);
     }
@@ -321,6 +324,61 @@ class Server extends Model
         // TODO change $server->services() to $server->getServices() everywhere
         
         return $this->services;
+    }
+    
+    public function getStatus()
+    {
+        if (isset($this->status)) {
+            return $this->status;
+        }
+        
+        $status = [
+            'online' => false,
+            'players' => null,
+            'max_players' => null,
+            'version' => null,
+        ];
+        
+        if ($this->connection_method == 'rest') {
+            $client = new Client();
+            $response = $client->request('GET', $this->api_address . '/status');
+            
+            if (!$response->getStatusCode() == 200) {
+                $this->status = $status;
+            } else {
+                $json = json_decode($response->getBody(), true);
+    
+                $status = [
+                    'online' => true,
+                    'players' => $json['online'],
+                    'max_players' => $json['maxOnline'],
+                    'version' => $json['version'],
+                ];
+                
+                $this->status = $status;
+            }
+        } else {
+            $client = new MinecraftQuery();
+            
+            try {
+                $client->Connect($this->ip_address, $this->port);
+                
+                $response = $client->GetInfo();
+    
+                $status = [
+                    'online' => true,
+                    'players' => $response['Players'],
+                    'max_players' => $response['MaxPlayers'],
+                    'version' => $response['Version'],
+                ];
+                
+                $this->status = $status;
+            } catch (MinecraftQueryException $e) {
+                $this->status = $status;
+            }
+        }
+        
+        return $this->status;
     }
     
     /**

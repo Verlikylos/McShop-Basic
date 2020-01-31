@@ -1,41 +1,18 @@
 <div class="card server-status-card shadow">
-    <div class="card-body">
-        <h5>Serwer Hardcore</h5>
-        <span class="badge badge-primary">hc.vmcshop.pro</span>
+    <div id="#serverStatusCard" class="card-body">
+        <h5>Serwer {{ $server->getName() }}</h5>
+        <span class="badge badge-primary">{{ $server->getDisplayAddress() }}</span>
         
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div id="serverStatusCard" data-target="{{ route('api.servers.status', $server->getSlug()) }}">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+    
+            <span class="badge badge-info">
+                <i class="fas fa-spinner fa-pulse"></i>
+                Łączenie z serwerem
+            </span>
         </div>
-        
-        <span class="badge badge-success">Online</span>
-        <span class="badge badge-info">25/100</span>
-        <span class="badge badge-info">1.14.4</span>
-    </div>
-</div>
-<div class="card server-status-card shadow">
-    <div class="card-body">
-        <h5>Serwer Survival</h5>
-        <span class="badge badge-primary">sv.vmcshop.pro</span>
-        
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 73%" aria-valuenow="73" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        
-        <span class="badge badge-success">Online</span>
-        <span class="badge badge-info">73/100</span>
-        <span class="badge badge-info">1.14.4</span>
-    </div>
-</div>
-<div class="card server-status-card shadow">
-    <div class="card-body">
-        <h5>Serwer MiniGames</h5>
-        <span class="badge badge-primary">mg.vmcshop.pro</span>
-        
-        <div class="progress">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-        </div>
-        
-        <span class="badge badge-danger">Offline</span>
     </div>
 </div>
 <div class="card server-status-card shadow">

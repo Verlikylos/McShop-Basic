@@ -1,5 +1,5 @@
 body {
-    background: url("../../images/background.png") no-repeat center fixed;
+    //background: url("../../images/background.png") no-repeat center fixed;
 
   &.acp {
     background: $breadcrumb-bg;
@@ -12,7 +12,7 @@ body {
       margin: 0;
       padding: 2rem 0 calc(2rem + 10px);
 
-      background: url("../../images/background.png") no-repeat bottom fixed;
+      //background: url("../../images/background.png") no-repeat bottom fixed;
     }
 
     aside {
@@ -416,7 +416,7 @@ footer {
 }
 
 .service-card {
-  min-height: 437px;
+  min-height: 533px;
 
   .card-body {
     display: flex;
@@ -428,4 +428,48 @@ footer {
   &.card-img-left {
     min-height: 244px;
   }
+}
+
+.service-card-pricing-table {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  span {
+    font-size: .75rem;
+  }
+
+  .price-tag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 1em;
+
+    border-right: 2px solid $border-color;
+
+    &:last-child {
+      border: none;
+    }
+
+    .price {
+      font-weight: bold;
+    }
+
+    .payment-method {
+      font-weight: bold;
+      color: $gray-600;
+    }
+  }
+}
+
+.card-horizontal-footer {
+  margin: 0;
+}
+
+.card-img-left .service-card-pricing-table {
+  justify-content: flex-start;
 }

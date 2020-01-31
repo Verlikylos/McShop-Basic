@@ -15,9 +15,15 @@ class ServiceRepository implements ServiceRepositoryInterface
 {
     private $table = 'services';
     
-    public function paginateServerServices(Server $server, int $itemsPerPage = 10): LengthAwarePaginator
+    public function paginateServerServices(Server $server, int $itemsPerPage = 10, bool $withNumbers = false): LengthAwarePaginator
     {
-        return $server->services()->orderBy('sort_id')->paginate($itemsPerPage);
+        $query = $server->services()->orderBy('sort_id');
+        
+        if ($withNumbers) {
+            $query->with('smsnumber');
+        }
+    
+        return $query->paginate($itemsPerPage);
     }
     
     

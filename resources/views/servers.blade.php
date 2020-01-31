@@ -1,7 +1,8 @@
 @extends('components.layout')
 
+@section('title', 'Wybór serwera')
+
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="#">McShop.io</a></li>
     <li class="breadcrumb-item active" aria-current="page">Wybór serwera</li>
 @endsection
 

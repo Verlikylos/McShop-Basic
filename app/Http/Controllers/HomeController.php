@@ -27,9 +27,9 @@ class HomeController extends Controller
     
     public function index(Server $server)
     {
-        $servers = $this->serverRepository->all();
-        
         if (!$server->exists) {
+            $servers = $this->serverRepository->all();
+            
             if ($servers->count() > 1) {
                 return View::make('servers')->with(['servers' => $servers]);
             }
@@ -37,7 +37,7 @@ class HomeController extends Controller
             $server = $servers->first();
         }
         
-        $services = $this->serviceRepository->paginateServerServices($server, 6);
+        $services = $this->serviceRepository->paginateServerServices($server, 4, true);
         
         return View::make('shop')->with(['server' => $server, 'services' => $services]);
     }

@@ -3,20 +3,31 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <meta name="description" content="{{ setting('general_page_description') }}">
+    <meta name="tags" content="{{ setting('general_page_tags') }}">
+    
+    <title>{{ setting('general_page_title') }} — @yield('title')</title>
+    
+    <link rel="icon" type="image/png" href="{{ setting('general_page_favicon') }}">
 
-    <link rel="stylesheet" href="{{ mix('/css/themes/vmcshop.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/css/themes/' . setting('layout_theme') . '.min.css') }}">
     <link rel="stylesheet" href="{{ asset('/css/fontawesome.min.css') }}">
     @if (isset($withJasnyBootstrap) && $withJasnyBootstrap)
         <link rel="stylesheet" href="{{ asset('/css/jasny-bootstrap.min.css') }}">
     @endif
-
-    <title>vMCShop Basic - @yield('title')</title>
+    
+    <style>
+        .logo-wrapper {
+            background: url("{{ setting('general_page_background') }}") no-repeat center fixed;
+        }
+    </style>
 </head>
 <body class="acp">
 
 <header class="shadow-sm">
     <div class="logo-wrapper">
-        <img class="img-fluid mx-auto" src="{{ asset('images/logo.png') }}" alt="Page Logo">
+        <img class="img-fluid mx-auto" src="{{ setting('general_page_logo') }}" alt="{{ setting('general_page_title') . ' page logo' }}">
     </div>
 </header>
 

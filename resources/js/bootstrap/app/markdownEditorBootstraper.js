@@ -20,7 +20,27 @@ const options = {
     viewer: true,
     height: 500,
     initialEditType: 'markdown',
-    previewType: 'tab'
+    previewType: 'tab',
+    toolbarItems: [
+        'heading',
+        'bold',
+        'italic',
+        'strike',
+        'divider',
+        'hr',
+        'quote',
+        'divider',
+        'ul',
+        'ol',
+        'indent',
+        'outdent',
+        'divider',
+        'link',
+        'divider',
+        'code',
+        'codeblock',
+        'divider',
+    ]
 }
 
 registerEditors()
@@ -33,6 +53,8 @@ function registerEditors() {
             el: $serverAnnouncementEditorElement[0],
             ...options
         })
+
+        serverAnnouncementEditor.setMarkdown($serverAnnouncementInput.val())
     }
 
     if ($serviceDescriptionEditorElement[0]) {
@@ -40,6 +62,8 @@ function registerEditors() {
             el: $serviceDescriptionEditorElement[0],
             ...options
         })
+
+        serviceDescriptionEditor.setMarkdown()
     }
 }
 

@@ -11,11 +11,6 @@
 |
 */
 
-Route::get('/service', [
-    'as' => 'service',
-    'uses' => 'ServiceController@index'
-]);
-
 Route::permanentRedirect('/admin', '/auth');
 
 Route::get('/auth', [
@@ -184,9 +179,30 @@ Route::middleware('auth')
                             'as' => 'numbers.index',
                             'uses' => 'SmsNumbersController@index'
                         ]);
+                        Route::get('/general', [
+                            'as' => 'general.index',
+                            'uses' => 'GeneralController@index'
+                        ]);
+                        Route::patch('/general', [
+                            'as' => 'general.update',
+                            'uses' => 'GeneralController@update'
+                        ]);
+                        Route::get('/layout', [
+                            'as' => 'layout.index',
+                            'uses' => 'LayoutController@index'
+                        ]);
+                        Route::patch('/layout', [
+                            'as' => 'layout.update',
+                            'uses' => 'LayoutController@update'
+                        ]);
                     });
             });
     });
+
+Route::get('/{server}/service/{service}', [
+    'as' => 'service',
+    'uses' => 'ServiceController@index'
+]);
 
 Route::get('/{server?}', [
     'as' => 'home',
