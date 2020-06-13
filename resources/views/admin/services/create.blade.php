@@ -18,14 +18,14 @@
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
                     <label for="serviceName">Nazwa usługi</label>
-                    <input type="text" class="form-control @error('serviceName') is-invalid @enderror" id="serviceName" name="serviceName" value="{{ old('serviceName') }}">
+                    <input type="text" class="form-control @error('serviceName') is-invalid @enderror" id="serviceName" name="serviceName" value="{{ old('serviceName') }}" required>
                     @error('serviceName')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group mt-3">
                     <label for="serviceServer">Serwer</label>
-                    <select class="form-control @error('serviceServer') is-invalid @enderror" id="serviceServer" name="serviceServer">
+                    <select class="selectpicker @error('serviceServer') is-invalid @enderror" id="serviceServer" name="serviceServer" required>
                         <option value="">Wybierz serwer...</option>
                         @foreach ($servers as $server)
                             <option value="{{ $server->getId() }}" {{ old('serviceServer') == $server->getId() ? 'selected' : '' }}>{{ 'Serwer ' . $server->getName() . ' (ID: #' . $server->getId() . ')' }}</option>
@@ -53,6 +53,7 @@
             </div>
             
             <div class="col-12">
+                <span>Opis usługi</span>
                 <div id="serviceDescriptionEditor"></div>
                 <input type="hidden" id="serviceDescription" name="serviceDescription" value="{{ old('serviceDescription') }}">
             </div>
@@ -70,7 +71,7 @@
                     
                     <div id="commandInputs">
                         <div class="form-group">
-                            <input type="text" class="form-control @error('serviceCommands') is-invalid @enderror serviceCommandInput" placeholder="Komenda #1">
+                            <input type="text" class="form-control @error('serviceCommands') is-invalid @enderror serviceCommandInput" placeholder="Komenda #1" required>
                             @error('serviceCommands')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -96,7 +97,7 @@
                     <div id="smsCollapse" class="card-body {{ old('serviceSmsNumber') ? '' : 'd-none' }}">
                         <div class="form-group">
                             <label for="serviceSmsNumber">Numer SMS</label>
-                            <select class="form-control @error('serviceSmsNumber') is-invalid @enderror" id="serviceSmsNumber" name="serviceSmsNumber">
+                            <select class="selectpicker @error('serviceSmsNumber') is-invalid @enderror" id="serviceSmsNumber" name="serviceSmsNumber">
                                 <option value="">Wybierz numer...</option>
                                 @foreach ($numbers as $number)
                                     <option value="{{ $number->getId() }}" {{ old('serviceSmsNumber') == $number->getId() ? 'selected' : '' }}>{{ $number->getNumber() . ' — ' . $number->getNettoCostFormatted() . ' (' .$number->getBruttoCostFormatted() . ' z VAT)' }}</option>

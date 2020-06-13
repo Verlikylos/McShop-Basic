@@ -7,7 +7,7 @@
     <meta name="description" content="{{ setting('general_page_description') }}">
     <meta name="tags" content="{{ setting('general_page_tags') }}">
     
-    <title>{{ setting('general_page_title') }} — @yield('title')</title>
+    <title>@yield('title') - {{ setting('general_page_title') }}</title>
     
     <link rel="icon" type="image/png" href="{{ setting('general_page_favicon') }}">
     
@@ -25,7 +25,7 @@
     <div class="container">
         <header>
             <div class="logo-wrapper">
-                <img class="img-fluid" src="{{ setting('general_page_logo') }}" alt="{{ setting('general_page_title') . ' page logo' }}">
+                <img class="img-fluid w-25" src="{{ setting('general_page_logo') }}" alt="{{ setting('general_page_title') . ' page logo' }}">
             </div>
             <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,11 +34,22 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
+                        <li class="nav-item {{ Route::currentRouteName() === 'home' ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('home') }}">
                                 <i class="fas fa-shopping-basket"></i> Sklep
                             </a>
                         </li>
+                        
+                        @foreach ($pages as $item)
+                            <li class="nav-item {{ isset($page) ? ($page->getId() == $item->getId() ? 'active' : '') : '' }}">
+                                <a class="nav-link" href="{{ $item->getType() == 'LINK' ? $item->getContent() : route('page', $item->getSlug()) }}">
+                                    @if ($item->getIcon() != null)
+                                        <i class="{{ $item->getIcon() }}"></i>
+                                        {{ $item->getName() }}
+                                    @endif
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
             </nav>
@@ -53,6 +64,24 @@
                     @yield('breadcrumb')
                 </ol>
             </nav>
+    
+            @if (session('shopSessionMessage'))
+                <div class="alert {{ 'alert-' . session('shopSessionMessage')['type'] }} alert-with-icon alert-dismissible fade show" role="alert">
+                    <div class="alert-icon">
+                        @if (session('shopSessionMessage')['type'] === 'success')
+                            <i class="fas fa-check fa-fw"></i>
+                        @elseif (session('shopSessionMessage')['type'] === 'danger' || session('shopSessionMessage')['type'] === 'warning')
+                            <i class="fas fa-exclamation-triangle"></i>
+                        @else
+                            <i class="fas fa-info-circle"></i>
+                        @endif
+                    </div>
+                    <p class="alert-message">{!! session('shopSessionMessage')['content'] !!}</p>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            @endif
 
             @yield('content')
         </main>
@@ -67,6 +96,8 @@
             </div>
         </footer>
     </div>
+    
+    @yield('modals')
 
     <script src="{{ mix('/js/bootstrap.min.js') }}"></script>
 </body>

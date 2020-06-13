@@ -3,26 +3,28 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repositories\Interfaces\ServerRepositoryInterface;
+use App\Http\Repositories\LogRepositoryInterface;
+use App\Http\Repositories\ServerRepositoryInterface;
 use App\Http\Requests\StoreServerRequest;
 use App\Http\Requests\UpdateServerAnnouncementRequest;
 use App\Http\Requests\UpdateServerRequest;
 use App\Models\Server;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ServersController extends Controller
 {
-    /**
-     * @var ServerRepositoryInterface
-     */
     private $serverRepository;
-
-    public function __construct(ServerRepositoryInterface $serverRepository)
+    private $logRepository;
+    
+    public function __construct(ServerRepositoryInterface $serverRepository, LogRepositoryInterface $logRepository)
     {
         $this->serverRepository = $serverRepository;
+        $this->logRepository = $logRepository;
     }
 
     public function index()
@@ -30,7 +32,7 @@ class ServersController extends Controller
         // TODO Use repositories instead of inline queries in all controllers
         $servers = Server::orderBy('sort_id')->paginate(10);
 
-        return View::make('admin.servers.index')->with(['servers' => $servers, 'serversCount' => count($servers)]);
+        return View::make('admin.servers.index')->with(['servers' => $servers]);
     }
 
     public function create()
@@ -54,18 +56,34 @@ class ServersController extends Controller
             'active' => false,
             'sort_id' => $this->serverRepository->getLastSortIndex() + 1,
         ];
+        
+        if (Str::endsWith($data['api_address'], '/')) {
+            $data['api_address'] = Str::replaceLast('/', '', $data['api_address']);
+        }
 
         if ($request->hasFile('serverImage') && $request->file('serverImage')->isValid()) {
             $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/servers')));
         }
 
         $server = $this->serverRepository->new($data);
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'success',
+            'details' => Lang::get('admin.servers.logs.created', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
 
         return Redirect::route('admin.servers.index')
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-            'Pomyślnie dodano serwer o nazwie ' .
-            '<span class="font-weight-bold">' . $server->getName() .
-            ' (ID: #' . $server->getId() . ')</span>!']);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.created', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 
     public function show_announcement(Server $server)
@@ -80,29 +98,66 @@ class ServersController extends Controller
         ];
 
         $this->serverRepository->update($server->id, $data);
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'info',
+            'details' => Lang::get('admin.servers.logs.announcement.edited', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
 
         return Redirect::route('admin.servers.index')
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Ogłoszenie serwera ' .
-                '<span class="font-weight-bold">' . $server->getName() .
-                ' (ID: #' . $server->getId() . ')</span> zostało pomyślnie zaktualizowane!']);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.announcement.edited', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 
     public function toggle_active(Server $server) {
         $this->serverRepository->update($server->getId(), ['active' => !$server->isActive()]);
 
-        $message = 'Serwer <span class="font-weight-bold">' . $server->getName() .
-            ' (ID: #' . $server->getId() . ')</span> został pomyślnie aktywowany!';
-
         if ($server->isActive()) {
-            $message = str_replace('aktywowany', 'dezaktywowany', $message);
-
+            $this->logRepository->new([
+                'category' => 'SERVERS',
+                'color' => 'primary',
+                'details' => Lang::get('admin.servers.logs.status.disabled', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
+            
             return Redirect::back()
-                ->with('sessionMessage', ['type' => 'success', 'content' => $message]);
+                ->with('sessionMessage', [
+                    'type' => 'success',
+                    'content' => Lang::get('admin.servers.status.disabled', [
+                        'server' => $server->getName(),
+                        'server_id' => $server->getId()
+                    ])
+                ]);
         }
-
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'primary',
+            'details' => Lang::get('admin.servers.logs.status.enabled', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
+    
         return Redirect::back()
-            ->with('sessionMessage', ['type' => 'success', 'content' => $message]);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.status.enabled', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 
     public function swap(Server $server, bool $up)
@@ -110,9 +165,9 @@ class ServersController extends Controller
         $secondServer = null;
 
         if ($up) {
-            $secondServer = $this->serverRepository->getWithHigherSortIdThan($server->getSortId());
-        } else {
             $secondServer = $this->serverRepository->getWithLowerSortIdThan($server->getSortId());
+        } else {
+            $secondServer = $this->serverRepository->getWithHigherSortIdThan($server->getSortId());
         }
 
         if ($secondServer == null) {
@@ -129,11 +184,24 @@ class ServersController extends Controller
 
         $this->serverRepository->update($server->getId(), $firstServerData);
         $this->serverRepository->update($secondServer->getId(), $secondServerData);
-
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'primary',
+            'details' => Lang::get('admin.servers.logs.order.updated', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
+    
         return Redirect::back()
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pozycja serwera <span class="font-weight-bold">' . $server->getName() .
-                ' (ID: #' . $server->getId() . ')</span> została zaktualizowana!']);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.order.change', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 
     public function edit(Server $server)
@@ -155,28 +223,56 @@ class ServersController extends Controller
             'api_address' => $request->get('serverApiAddress'),
             'api_key' => $request->get('serverApiKey'),
         ];
+    
+        if (Str::endsWith($data['api_address'], '/')) {
+            $data['api_address'] = Str::replaceLast('/', '', $data['api_address']);
+        }
 
         if ($request->hasFile('serverImage') && $request->file('serverImage')->isValid()) {
             $data['image_url'] = asset(str_replace('public/', '', $request->file('serverImage')->storePublicly('public/uploads/servers')));
         }
 
         $this->serverRepository->update($server->getId(), $data);
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'info',
+            'details' => Lang::get('admin.servers.logs.updated', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
 
         return Redirect::route('admin.servers.index')
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pomyślnie zaktualizowano serwer ' .
-                '<span class="font-weight-bold">' . $server->getName() .
-                ' (ID: #' . $server->getId() . ')</span>!']);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.updated', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 
     public function delete(Server $server)
     {
         $this->serverRepository->delete($server->getId());
+    
+        $this->logRepository->new([
+            'category' => 'SERVERS',
+            'color' => 'danger',
+            'details' => Lang::get('admin.servers.logs.deleted', [
+                'server' => $server->getName(),
+                'server_id' => $server->getId()
+            ])
+        ]);
 
-        return Redirect::route('admin.servers.index')
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pomyślnie usunięto serwer ' .
-                '<span class="font-weight-bold">' . $server->getName() .
-                ' (ID: #' . $server->getId() . ')</span>!']);
+        return Redirect::back()
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.servers.deleted', [
+                    'server' => $server->getName(),
+                    'server_id' => $server->getId()
+                ])
+            ]);
     }
 }

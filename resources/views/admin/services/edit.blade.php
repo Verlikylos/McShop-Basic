@@ -18,14 +18,14 @@
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
                     <label for="serviceName">Nazwa usługi</label>
-                    <input type="text" class="form-control @error('serviceName') is-invalid @enderror" id="serviceName" name="serviceName" value="{{ old('serviceName') ?? $service->getName() }}">
+                    <input type="text" class="form-control @error('serviceName') is-invalid @enderror" id="serviceName" name="serviceName" value="{{ old('serviceName') ?? $service->getName() }}" required>
                     @error('serviceName')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group mt-3">
                     <label for="serviceServer">Serwer</label>
-                    <select class="form-control @error('serviceServer') is-invalid @enderror" id="serviceServer" name="serviceServer">
+                    <select class="selectpicker @error('serviceServer') is-invalid @enderror" id="serviceServer" name="serviceServer" required>
                         <option value="">Wybierz serwer...</option>
                         @foreach ($servers as $server)
                             <option value="{{ $server->getId() }}" {{ old('serviceServer') == $server->getId() ? 'selected' : ($service->getServer()->getId() == $server->getId() ? 'selected' : '') }}>{{ 'Serwer ' . $server->getName() . ' (ID: #' . $server->getId() . ')' }}</option>
@@ -56,13 +56,14 @@
             </div>
             
             <div class="col-12">
+                <span>Opis usługi</span>
                 <div id="serviceDescriptionEditor"></div>
                 <input type="hidden" id="serviceDescription" name="serviceDescription" value="{{ old('serviceDescription') ?? $service->getDescription() }}">
             </div>
             
             <div class="col-12">
                 <div class="custom-control custom-checkbox mt-4 mb-3 text-center">
-                    <input type="checkbox" class="custom-control-input" id="serviceRequiresPlayer" name="serviceRequiresPlayer" {{ old('serviceRequiresPlayer') ? 'checked' : ($service->isRequiresOnlinePlayer() ? 'checked' : '') }}>
+                    <input type="checkbox" class="custom-control-input" id="serviceRequiresPlayer" name="serviceRequiresPlayer" {{ old('requiresPlayer') ? 'checked' : ($service->requiresOnlinePlayer() ? 'checked' : '') }}>
                     <label class="custom-control-label" for="serviceRequiresPlayer">Wymaga gracza online</label>
                 </div>
             </div>
@@ -73,7 +74,7 @@
                     
                     <div id="commandInputs">
                         <div class="form-group">
-                            <input type="text" class="form-control @error('serviceCommands') is-invalid @enderror serviceCommandInput" placeholder="Komenda #1">
+                            <input type="text" class="form-control @error('serviceCommands') is-invalid @enderror serviceCommandInput" placeholder="Komenda #1" required>
                             @error('serviceCommands')
                                 <span class="invalid-feedback">{{ $message }}</span>
                             @enderror
@@ -99,7 +100,7 @@
                     <div id="smsCollapse" class="card-body {{ $service->getSmsNumber() != null && $service->getSmsNumber()->exists ? '' : (old('serviceSmsNumber') ? '' : 'd-none') }}">
                         <div class="form-group">
                             <label for="serviceSmsNumber">Numer SMS</label>
-                            <select class="form-control @error('serviceSmsNumber') is-invalid @enderror" id="serviceSmsNumber" name="serviceSmsNumber">
+                            <select class="selectpicker @error('serviceSmsNumber') is-invalid @enderror" id="serviceSmsNumber" name="serviceSmsNumber">
                                 <option value="">Wybierz numer...</option>
                                 @foreach ($numbers as $number)
                                     <option value="{{ $number->getId() }}" {{ old('serviceSmsNumber') == $number->getId() ? 'selected' : ($service->getSmsNumber() != null && $service->getSmsNumber()->getId() == $number->getId() ? 'selected' : '') }}>{{ $number->getNumber() . ' — ' . $number->getNettoCostFormatted() . ' (' .$number->getBruttoCostFormatted() . ' z VAT)' }}</option>

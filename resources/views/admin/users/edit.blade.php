@@ -18,7 +18,7 @@
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
                     <label for="userName">Nazwa użytkownika</label>
-                    <input type="text" class="form-control" id="userName" value="{{ $user->getName() }}" disabled>
+                    <input type="text" class="form-control" id="userName" value="{{ $user->getName() }}" required disabled>
                 </div>
             </div>
         </div>

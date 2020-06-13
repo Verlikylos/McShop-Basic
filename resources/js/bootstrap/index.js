@@ -11,10 +11,13 @@ import Tab from './tab'
 import Toast from './toast'
 import Tooltip from './tooltip'
 import Util from './util'
+import 'bootstrap-select'
 
 import './app/dynamicSidebarServerStatus'
+import './app/dynamicSidebarTeamspeakStatus'
 import './app/markdownEditorBootstraper'
 
+import './app/servicePurchaseFormInputHandler'
 import './app/serverActiveStatusButtonHandler'
 import './app/serverConnectionMethodSwitch'
 import './app/serverAnnouncementStatusMessageUpdater'
@@ -23,6 +26,8 @@ import './app/entityActiveFilterSelectHandler'
 import './app/numberBruttoCalculator'
 import './app/serviceCommandsDynamicInput'
 import './app/checkboxSectionCollapse'
+import './app/voucherMultiusageSelector'
+import './app/pageContentTypeSwitch'
 
 import './vmcshop'
 
@@ -32,6 +37,17 @@ import './vmcshop'
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * --------------------------------------------------------------------------
  */
+
+$('select').selectpicker({
+  iconBase: 'fas',
+  tickIcon: 'fa-check',
+  noneSelectedText: 'Nic nie wybrano',
+  noneResultsText: 'Brak wyników dla frazy: {0}',
+  showTick: true,
+  size: 10,
+  style: '',
+  styleBase: 'form-control',
+});
 
 (() => {
   if (typeof $ === 'undefined') {

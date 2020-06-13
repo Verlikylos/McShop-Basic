@@ -3,11 +3,13 @@
 @section('title', 'Ustawienia ogólne')
 
 @section('acp-card-title')
-    <div class="d-flex flex-row w-75">
-        <h4 class="acp-card-title">
-            <i class="fas fa-tools"></i> Ustawienia ogólne
-        </h4>
-    </div>
+    <h4 class="acp-card-title">
+        <i class="fas fa-tools"></i> Ustawienia ogólne
+    </h4>
+    <a href="{{ route('admin.settings.index') }}" class="btn btn-outline-primary">
+        <i class="fas fa-chevron-left"></i>
+        Wróć
+    </a>
 @endsection
 
 @section('content')

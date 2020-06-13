@@ -3,11 +3,13 @@
 @section('title', 'Ustawienia ogólne')
 
 @section('acp-card-title')
-    <div class="d-flex flex-row w-75">
-        <h4 class="acp-card-title">
-            <i class="fas fa-object-group"></i> Ustawienia wyglądu
-        </h4>
-    </div>
+    <h4 class="acp-card-title">
+        <i class="fas fa-object-group"></i> Ustawienia wyglądu
+    </h4>
+    <a href="{{ route('admin.settings.index') }}" class="btn btn-outline-primary">
+        <i class="fas fa-chevron-left"></i>
+        Wróć
+    </a>
 @endsection
 
 @section('content')
@@ -19,7 +21,7 @@
     
                 <div class="form-group">
                     <label for="layoutTheme">Motyw</label>
-                    <select class="form-control @error('layoutTheme') is-invalid @enderror" id="layoutTheme" name="layoutTheme">
+                    <select class="selectpicker @error('layoutTheme') is-invalid @enderror" id="layoutTheme" name="layoutTheme">
                         @foreach(config('mcshop.themes') as $theme)
                             @php($themeName = strtolower(str_replace([' ', '.io'], ['-', ''], $theme)))
                             <option value="{{ $themeName }}" {{ $themeName == setting('layout_theme') ? 'selected' : '' }}>{{ $theme }}</option>

@@ -3,37 +3,37 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Repositories\Interfaces\ServerRepositoryInterface;
-use App\Http\Repositories\Interfaces\ServiceRepositoryInterface;
-use App\Http\Repositories\Interfaces\SmsNumberRepositoryInterface;
+use App\Http\Repositories\LogRepositoryInterface;
+use App\Http\Repositories\ServerRepositoryInterface;
+use App\Http\Repositories\ServiceRepositoryInterface;
+use App\Http\Repositories\SmsNumberRepositoryInterface;
 use App\Http\Requests\StoreServiceRequest;
 use App\Http\Requests\UpdateServiceRequest;
 use App\Models\Server;
 use App\Models\Service;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class ServicesController extends Controller
 {
-    /**
-     * @var ServiceRepositoryInterface
-     */
     private $serviceRepository;
-    /**
-     * @var ServerRepositoryInterface
-     */
     private $serverRepository;
-    /**
-     * @var SmsNumberRepositoryInterface
-     */
     private $numberRepository;
+    private $logRepository;
     
-    public function __construct(ServiceRepositoryInterface $serviceRepository, ServerRepositoryInterface $serverRepository, SmsNumberRepositoryInterface $numberRepository)
+    public function __construct(
+        ServiceRepositoryInterface $serviceRepository,
+        ServerRepositoryInterface $serverRepository,
+        SmsNumberRepositoryInterface $numberRepository,
+        LogRepositoryInterface $logRepository
+    )
     {
         $this->serviceRepository = $serviceRepository;
         $this->serverRepository = $serverRepository;
         $this->numberRepository = $numberRepository;
+        $this->logRepository = $logRepository;
     }
     
     public function index(Server $server)
@@ -41,7 +41,7 @@ class ServicesController extends Controller
         $servers = $this->serverRepository->all();
         
         if (!$server->exists) {
-            $server = $this->serverRepository->getFirstServer(true);
+            $server = $servers->first();
         }
         
         $services = $this->serviceRepository->paginateServerServices($server);
@@ -82,31 +82,80 @@ class ServicesController extends Controller
         
         $service = $this->serviceRepository->new($data);
     
-        return Redirect::route('admin.services.index', ['server' => $service->getServer()->getSlug()])
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pomyślnie dodano usługę o nazwie ' .
-                '<span class="font-weight-bold">' . $service->getName() .
-                ' (ID: #' . $service->getId() . ')</span>' .
-                ' dla serwera <span class="font-weight-bold"> ' .
-                $service->getServer()->getName() . ' (ID: #' .
-                $service->getServer()->getId() . ')</span>!']);
+        $this->logRepository->new([
+            'category' => 'SERVICES',
+            'color' => 'success',
+            'details' => Lang::get('admin.services.logs.created', [
+                'service' => $service->getName(),
+                'service_id' => $service->getId(),
+                'server' => $service->getServer()->getName(),
+                'server_id' => $service->getServer()->getId(),
+            ])
+        ]);
+    
+        return Redirect::route(
+                'admin.services.index',
+                ['server' => $service->getServer()->getSlug()]
+            )
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.services.created', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
     }
     
     public function toggle_active(Service $service) {
         $this->serviceRepository->update($service, ['active' => !$service->isActive()]);
         
-        $message = 'Usługa <span class="font-weight-bold">' . $service->getName() .
-            ' (ID: #' . $service->getId() . ')</span> została pomyślnie aktywowana!';
-        
         if ($service->isActive()) {
-            $message = str_replace('aktywowana', 'dezaktywowana', $message);
+            $this->logRepository->new([
+                'category' => 'SERVICES',
+                'color' => 'primary',
+                'details' => Lang::get('admin.services.logs.status.disabled', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
             
             return Redirect::back()
-                ->with('sessionMessage', ['type' => 'success', 'content' => $message]);
+                ->with('sessionMessage', [
+                    'type' => 'success',
+                    'content' => Lang::get('admin.services.status.disabled', [
+                        'service' => $service->getName(),
+                        'service_id' => $service->getId(),
+                        'server' => $service->getServer()->getName(),
+                        'server_id' => $service->getServer()->getId(),
+                    ])
+                ]);
         }
+    
+        $this->logRepository->new([
+            'category' => 'SERVICES',
+            'color' => 'primary',
+            'details' => Lang::get('admin.services.logs.status.enabled', [
+                'service' => $service->getName(),
+                'service_id' => $service->getId(),
+                'server' => $service->getServer()->getName(),
+                'server_id' => $service->getServer()->getId(),
+            ])
+        ]);
         
         return Redirect::back()
-            ->with('sessionMessage', ['type' => 'success', 'content' => $message]);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.services.status.enabled', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
     }
     
     public function swap(Service $service, bool $up)
@@ -114,9 +163,9 @@ class ServicesController extends Controller
         $secondService = null;
         
         if ($up) {
-            $secondService = $this->serviceRepository->getWithHigherSortIdThan($service);
-        } else {
             $secondService = $this->serviceRepository->getWithLowerSortIdThan($service);
+        } else {
+            $secondService = $this->serviceRepository->getWithHigherSortIdThan($service);
         }
         
         if ($secondService == null) {
@@ -133,11 +182,28 @@ class ServicesController extends Controller
         
         $this->serviceRepository->update($service, $firstServiceData);
         $this->serviceRepository->update($secondService, $secondServiceData);
+    
+        $this->logRepository->new([
+            'category' => 'SERVICES',
+            'color' => 'primary',
+            'details' => Lang::get('admin.services.logs.order.updated', [
+                'service' => $service->getName(),
+                'service_id' => $service->getId(),
+                'server' => $service->getServer()->getName(),
+                'server_id' => $service->getServer()->getId(),
+            ])
+        ]);
         
         return Redirect::back()
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pozycja usługi <span class="font-weight-bold">' . $service->getName() .
-                ' (ID: #' . $service->getId() . ')</span> została zaktualizowana!']);
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.services.order.updated', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
     }
     
     public function edit(Service $service)
@@ -170,28 +236,58 @@ class ServicesController extends Controller
     
         $this->serviceRepository->update($service, $data);
     
-        return Redirect::route('admin.services.index', ['server' => $service->getServer()->getSlug()])
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pomyślnie zaktualizowano usługę o nazwie ' .
-                '<span class="font-weight-bold">' . $service->getName() .
-                ' (ID: #' . $service->getId() . ')</span>' .
-                ' z serwera <span class="font-weight-bold"> ' .
-                $service->getServer()->getName() . ' (ID: #' .
-                $service->getServer()->getId() . ')</span>!']);
+        $this->logRepository->new([
+            'category' => 'SERVICES',
+            'color' => 'info',
+            'details' => Lang::get('admin.services.logs.updated', [
+                'service' => $service->getName(),
+                'service_id' => $service->getId(),
+                'server' => $service->getServer()->getName(),
+                'server_id' => $service->getServer()->getId(),
+            ])
+        ]);
+    
+        return Redirect::route('admin.services.index', [
+                'server' => $service->getServer()->getSlug()
+            ])
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.services.updated', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
     }
     
-    // TODO do delete request of all entities with HTTP DELETE method instead of GET
+    // TODO make delete request of all entities with HTTP DELETE method instead of GET
     public function delete(Service $service)
     {
         $this->serviceRepository->delete($service);
     
-        return Redirect::route('admin.services.index', ['server' => $service->getServer()->getSlug()])
-            ->with('sessionMessage', ['type' => 'success', 'content' =>
-                'Pomyślnie usunięto usługę o nazwie ' .
-                '<span class="font-weight-bold">' . $service->getName() .
-                ' (ID: #' . $service->getId() . ')</span>' .
-                ' z serwera <span class="font-weight-bold"> ' .
-                $service->getServer()->getName() . ' (ID: #' .
-                $service->getServer()->getId() . ')</span>!']);
+        $this->logRepository->new([
+            'category' => 'SERVICES',
+            'color' => 'danger',
+            'details' => Lang::get('admin.services.logs.deleted', [
+                'service' => $service->getName(),
+                'service_id' => $service->getId(),
+                'server' => $service->getServer()->getName(),
+                'server_id' => $service->getServer()->getId(),
+            ])
+        ]);
+    
+        return Redirect::route('admin.services.index', [
+                'server' => $service->getServer()->getSlug()
+            ])
+            ->with('sessionMessage', [
+                'type' => 'success',
+                'content' => Lang::get('admin.services.deleted', [
+                    'service' => $service->getName(),
+                    'service_id' => $service->getId(),
+                    'server' => $service->getServer()->getName(),
+                    'server_id' => $service->getServer()->getId(),
+                ])
+            ]);
     }
 }

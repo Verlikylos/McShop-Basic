@@ -7,13 +7,13 @@
         <h4 class="acp-card-title">
             <i class="fas fa-cubes"></i> Usługi
         </h4>
-        <select data-target="{{ route('admin.services.index') }}" class="custom-select custom-select-sm entityActiveFilterSelect w-50 ml-2">
+        <select data-target="{{ route('admin.services.index') }}" class="selectpicker entityActiveFilterSelect w-50 ml-2">
             @foreach($servers as $server)
-                <option value="{{ $server->getId() }}" {{ $server->getId() == $activeServer->getId() ? 'selected' : '' }}>{{ 'z serwera ' . $server->getName() . ' (ID: #' . $server->getId() . ')' }}</option>
+                <option value="{{ $server->getSlug() }}" {{ $server->getId() == $activeServer->getId() ? 'selected' : '' }}>{{ 'z serwera ' . $server->getName() . ' (ID: #' . $server->getId() . ')' }}</option>
             @endforeach
         </select>
     </div>
-    <a href="{{ route('admin.services.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj usługę</a>
+    <a href="{{ route('admin.services.create') }}" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Dodaj usługę</a>
 @endsection
 
 @section('content')

@@ -16,6 +16,11 @@ const $serviceDescriptionEditorElement = $('#serviceDescriptionEditor')
 const $serviceForm = $('#createServiceForm')
 let serviceDescriptionEditor = null
 
+const $pageContentInput = $('#pageContent')
+const $pageContentEditorElement = $('#pageContentEditor')
+const $pageForm = $('#createPageForm')
+let pageContentEditor = null
+
 const options = {
     viewer: true,
     height: 500,
@@ -63,7 +68,16 @@ function registerEditors() {
             ...options
         })
 
-        serviceDescriptionEditor.setMarkdown()
+        serviceDescriptionEditor.setMarkdown($serviceDescriptionInput.val())
+    }
+
+    if ($pageContentEditorElement[0]) {
+        pageContentEditor = new Editor({
+            el: $pageContentEditorElement[0],
+            ...options
+        })
+
+        pageContentEditor.setMarkdown($pageContentInput.val())
     }
 }
 
@@ -77,6 +91,12 @@ function registerEvents() {
     if ($serviceForm[0]) {
         $serviceForm.on('submit', function () {
             $serviceDescriptionInput.val(serviceDescriptionEditor.getMarkdown())
+        })
+    }
+
+    if ($pageForm[0]) {
+        $pageForm.on('submit', function () {
+            $pageContentInput.val(pageContentEditor.getMarkdown())
         })
     }
 }

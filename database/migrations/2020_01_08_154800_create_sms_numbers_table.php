@@ -15,7 +15,7 @@ class CreateSmsNumbersTable extends Migration
     {
         Schema::create('sms_numbers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('operator', ['cashbill', 'microsms', 'rushpay', 'hotpay', 'simpay']);
+            $table->enum('provider', array_keys(config('mcshop.payment_providers.sms')));
             $table->string('number');
             $table->unsignedBigInteger('netto_cost');
         });

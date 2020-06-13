@@ -6,7 +6,7 @@
     <h4 class="acp-card-title">
         <i class="fas fa-server"></i> Serwery
     </h4>
-    <a href="{{ route('admin.servers.create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Dodaj serwer</a>
+    <a href="{{ route('admin.servers.create') }}" class="btn btn-outline-primary"><i class="fas fa-plus"></i> Dodaj serwer</a>
 @endsection
 
 @section('content')

@@ -25,23 +25,24 @@
     },
     "require": {
         "php": "^7.2",
-        "anlutro/l4-settings": "^0.10.0",
+        "anlutro/l4-settings": "^0.11.0",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
-        "laravel/framework": "^6.2",
+        "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
+        "planetteamspeak/ts3-php-framework": "^1.1",
         "xpaw/php-minecraft-query": "^4.0",
         "xpaw/php-source-query-class": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
         "barryvdh/laravel-ide-helper": "^2.6",
-        "facade/ignition": "^1.4",
+        "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
+        "nunomaduro/collision": "^4.1",
+        "phpunit/phpunit": "^8.5"
     },
     "config": {
         "optimize-autoloader": true,
@@ -65,7 +66,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "app/helpers.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

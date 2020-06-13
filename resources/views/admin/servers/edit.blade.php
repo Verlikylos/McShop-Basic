@@ -18,14 +18,14 @@
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
                     <label for="serverName">Nazwa serwera</label>
-                    <input type="text" class="form-control @error('serverName') is-invalid @enderror" id="serverName" name="serverName" value="{{ old('serverName') ?? $server->getName() }}">
+                    <input type="text" class="form-control @error('serverName') is-invalid @enderror" id="serverName" name="serverName" value="{{ old('serverName') ?? $server->getName() }}" required>
                     @error('serverName')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="serverDisplayAddress">Wyświetlany adres serwera</label>
-                    <input type="text" class="form-control @error('serverDisplayAddress') is-invalid @enderror" id="serverDisplayAddress" name="serverDisplayAddress" value="{{ old('serverDisplayAddress') ?? $server->getDisplayAddress() }}">
+                    <input type="text" class="form-control @error('serverDisplayAddress') is-invalid @enderror" id="serverDisplayAddress" name="serverDisplayAddress" value="{{ old('serverDisplayAddress') ?? $server->getDisplayAddress() }}" required>
                     @error('serverDisplayAddress')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror
@@ -53,7 +53,7 @@
 
                 <div class="form-group mt-3">
                     <label for="serverConnectionMethod">Metoda połączenia z serwerem</label>
-                    <select class="form-control @error('serverConnectionMethod') is-invalid @enderror" id="serverConnectionMethod" name="serverConnectionMethod">
+                    <select class="selectpicker @error('serverConnectionMethod') is-invalid @enderror" id="serverConnectionMethod" name="serverConnectionMethod">
                         <option value="api" {{ old('serverConnectionMethod') ? (old('serverConnectionMethod') === 'api' ? 'selected' : '') : ($server->getConnectionMethod() === 'api' ? 'selected' : '') }}>REST API</option>
                         <option value="rcon" {{ old('serverConnectionMethod') ? (old('serverConnectionMethod') === 'rcon' ? 'selected' : '') : ($server->getConnectionMethod() === 'rcon' ? 'selected' : '') }}>RCON</option>
                     </select>

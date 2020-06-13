@@ -23,5 +23,8 @@
         "sass-loader": "^7.1.0",
         "tui-editor": "^1.4.10",
         "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "bootstrap-select": "^1.13.12"
     }
 }

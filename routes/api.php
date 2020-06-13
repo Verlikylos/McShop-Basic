@@ -20,6 +20,24 @@ Route::namespace('Api')
            'as' => 'servers.status',
            'uses' => 'ServersController@status'
         ]);
+       Route::get('/teamspeak/status', [
+           'as' => 'teamspeak.status',
+           'uses' => 'TeamspeakController@status'
+       ]);
 });
+
+Route::name('api.payments.')
+    ->prefix('payments')
+    ->group(function () {
+        Route::post('/psc', [
+            'as' => 'psc',
+            'uses' => 'Payments\\PscPaymentController@verify'
+        ]);
+});
+
+Route::post('/transfer/notify/hotpay', [
+    'as' => 'pscas',
+    'uses' => 'Payments\\PscPaymentController@verify'
+]);
 
 

@@ -25,9 +25,9 @@ class StoreSmsNumberRequest extends FormRequest
     public function rules()
     {
         return [
-            'numberOperator' => [
+            'numberProvider' => [
                 'required',
-                Rule::in(array_keys(config('mcshop.sms_operators')))
+                Rule::in(array_keys(config('mcshop.payment_providers.sms')))
             ],
             'numberNumber' => 'required|numeric|digits_between:3,10',
             'numberNetto' => 'required|numeric|min:1|max:100',

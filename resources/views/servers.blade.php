@@ -8,6 +8,19 @@
 
 @section('content')
     <div class="row">
+        @empty ($servers)
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-body text-center">
+                        <h3 class="my-5">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Brak serwerów do wyświetlenia!
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        @endempty
+        
         @foreach ($servers as $server)
             <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                 <div class="card shadow">

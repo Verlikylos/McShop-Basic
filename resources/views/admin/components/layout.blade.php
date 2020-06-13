@@ -7,7 +7,7 @@
     <meta name="description" content="{{ setting('general_page_description') }}">
     <meta name="tags" content="{{ setting('general_page_tags') }}">
     
-    <title>{{ setting('general_page_title') }} — @yield('title')</title>
+    <title>@yield('title') - {{ setting('general_page_title') }}</title>
     
     <link rel="icon" type="image/png" href="{{ setting('general_page_favicon') }}">
 
@@ -27,7 +27,7 @@
 
 <header class="shadow-sm">
     <div class="logo-wrapper">
-        <img class="img-fluid mx-auto" src="{{ setting('general_page_logo') }}" alt="{{ setting('general_page_title') . ' page logo' }}">
+        <img class="img-fluid mx-auto w-25" src="{{ setting('general_page_logo') }}" alt="{{ setting('general_page_title') . ' page logo' }}">
     </div>
 </header>
 
@@ -52,7 +52,7 @@
                             <div class="alert-icon">
                                 @if (session('sessionMessage')['type'] === 'success')
                                     <i class="fas fa-check fa-fw"></i>
-                                @elseif (session('sessionMessage') === 'danger')
+                                @elseif (session('sessionMessage')['type'] === 'danger' || session('sessionMessage')['type'] === 'warning')
                                     <i class="fas fa-exclamation-triangle"></i>
                                 @else
                                     <i class="fas fa-info-circle"></i>
@@ -87,5 +87,7 @@
 @if (isset($withJasnyBootstrap) && $withJasnyBootstrap)
     <script src="{{ asset('/js/jasny-bootstrap.min.js') }}"></script>
 @endif
+
+@yield('scripts')
 </body>
 </html>

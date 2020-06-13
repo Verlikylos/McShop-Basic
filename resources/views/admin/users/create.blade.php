@@ -18,7 +18,7 @@
             <div class="col-12 col-md-8 col-lg-4 mx-auto">
                 <div class="form-group">
                     <label for="userName">Nazwa użytkownika</label>
-                    <input type="text" class="form-control @error('userName') is-invalid @enderror" id="userName" name="userName" value="{{ old('userName') }}">
+                    <input type="text" class="form-control @error('userName') is-invalid @enderror" id="userName" name="userName" value="{{ old('userName') }}" required>
                     @error('userName')
                         <span class="invalid-feedback">{{ $message }}</span>
                     @enderror

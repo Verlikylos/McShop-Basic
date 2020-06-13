@@ -24,7 +24,8 @@ function inputsToJson() {
     let data = []
 
     $commandInputs.find('.serviceCommandInput').each((index, el) => {
-        data.push(el.value)
+        if (el.value != '')
+            data.push(el.value)
     })
 
 

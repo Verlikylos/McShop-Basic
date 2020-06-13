@@ -132,7 +132,6 @@ footer {
 .discord-widget {
   iframe {
     width: 100%;
-    max-height: 256px;
   }
 }
 
@@ -145,20 +144,30 @@ footer {
 }
 
 .service-last-customers {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
+    li.list-group-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    .avatar {
-        margin: 0 .25rem;
+      .player-info {
+        display: flex;
+        align-items: center;
 
-        &:first-child {
-            margin-left: 0;
+        .avatar {
+          margin-right: 1rem;
+          width: 30px;
+          height: 30px;
         }
 
-        &:last-child {
-            margin-right: 0;
+        .player-name {
+          color: $primary;
         }
+      }
+
+      .date {
+        color: $text-muted;
+        font-size: 0.75rem;
+      }
     }
 }
 
@@ -174,28 +183,45 @@ footer {
 
     background-color: $white;
 
-    border-radius: $nav-pills-border-radius;
+    border-radius: $border-radius;
+    border-bottom: 1px solid $border-color;
 
-    .nav-pills {
-        border-bottom: 1px solid $gray-300;
-    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-  .nav-link {
-    color: $primary;
+      padding: .5rem;
 
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-
-    &:hover {
       color: $primary;
 
-      background-color: rgba($primary, 0.15);
-    }
+      border-radius: 0;
+      border-bottom: 1px solid $border-color;
 
-    &.active {
-      color: $white;
+      .badge {
+        color: $white;
+        background-color: $primary;
+      }
+
+      &.active {
+        color: $white;
+
+        &:first-child {
+          border-top-left-radius: $border-radius;
+          border-top-right-radius: $border-radius;
+        }
+
+        &:last-child {
+          border-bottom-left-radius: $border-radius;
+          border-bottom-right-radius: $border-radius;
+        }
+
+        .badge {
+          color: $white;
+          background-color: $success;
+        }
+      }
     }
-  }
 
     .tab-pane {
       min-height: 468px;
@@ -468,8 +494,128 @@ footer {
 
 .card-horizontal-footer {
   margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  .service-card-pricing-table {
+    margin: 0 0 1rem 0;
+  }
+
+  @include media-breakpoint-up(md) {
+    flex-direction: row;
+
+    .service-card-pricing-table {
+      margin: 0;
+    }
+  }
+
+  .btn {
+    white-space: nowrap;
+  }
 }
 
 .card-img-left .service-card-pricing-table {
   justify-content: flex-start;
+}
+
+.text-code {
+  color: $code-color !important;
+}
+
+.payment-box-header {
+  margin: 0 0 1rem 0;
+  padding-bottom: .6rem;
+
+  font-size: 1.15rem;
+
+  border-bottom: 1px solid $border-color;
+
+  .step {
+    padding: 2px 8px;
+
+    color: $white;
+    font-size: 1rem;
+    line-height: 1;
+
+    background-color: $primary;
+
+    border-radius: $border-radius;
+
+  }
+}
+
+.service-purchases-amount {
+  margin-top: 1rem;
+
+  text-align: center;
+  font-size: 1.15rem;
+}
+
+.custom-page-card > .card-body {
+  min-height: 50vh;
+}
+
+.widget-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1rem;
+
+  margin: 0;
+  padding: 0;
+
+  .widget {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-bottom: 1rem;
+    padding: 0.5rem 0.25rem;
+
+    background-color: $breadcrumb-bg;
+    border: 1px solid $border-color;
+    border-radius: $card-border-radius;
+
+    list-style: none;
+
+    .widget-content {
+      display: flex;
+      flex-direction: column;
+
+      width: 100%;
+
+      margin-left: 1rem;
+
+      .widget-name {
+
+        font-size: 1rem;
+        font-weight: bold;
+      }
+
+      .widget-actions {
+        display: flex;
+
+        .btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+
+          width: 1.5rem;
+          height: 1.5rem;
+
+          margin-right: 1rem;
+          padding: 0;
+
+          i {
+            width: 15px;
+            height: 13px;
+            font-size: .75rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.payment-redirect-card {
+  min-height: 50vh;
 }

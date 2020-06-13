@@ -18,10 +18,10 @@
         <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.services.index' ? 'active' : '' }}" href="{{ route('admin.services.index') }}">
             <i class="fas fa-cubes fa-fw"></i> Usługi
         </a>
-        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.vouchers.index' ? 'active' : '' }}" href="#">
+        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.vouchers.index' ? 'active' : '' }}" href="{{ route('admin.vouchers.index') }}">
             <i class="fas fa-ticket-alt fa-fw"></i> Vouchery
         </a>
-        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.pages.index' ? 'active' : '' }}" href="#">
+        <a class="nav-item nav-link {{ Route::currentRouteName() === 'admin.pages.index' ? 'active' : '' }}" href="{{ route('admin.pages.index') }}">
             <i class="fas fa-file-code fa-fw"></i> Własne strony
         </a>
         <div class="nav-item">
@@ -30,7 +30,7 @@
         <a class="nav-item nav-link" href="#">
             <i class="fas fa-history fa-fw"></i> Historia zakupów
         </a>
-        <a class="nav-item nav-link" href="#">
+        <a class="nav-item nav-link {{ in_array(Route::currentRouteName(), ['admin.logs.acp', 'admin.logs.payments', 'admin.logs.commands'])  ? 'active' : '' }}" href="{{ route('admin.logs.acp') }}">
             <i class="fas fa-database fa-fw"></i> Logi
         </a>
         <div class="nav-item">

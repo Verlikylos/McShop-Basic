@@ -3,13 +3,22 @@
 namespace App\Http\Controllers\Admin\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Http\Repositories\LogRepositoryInterface;
 use App\Http\Requests\UpdateGeneralSettingsRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 
 class GeneralController extends Controller
 {
+    private $logRepository;
+    
+    public function __construct(LogRepositoryInterface $logRepository)
+    {
+        $this->logRepository = $logRepository;
+    }
+    
     public function index()
     {
         return View::make('admin.settings.general');
@@ -25,7 +34,17 @@ class GeneralController extends Controller
            'general_page_logo' => $request->get('settingPageLogo'),
            'general_page_background' => $request->get('settingPageBackground')
         ])->save();
-        
-        return Redirect::route('admin.settings.general.index')->with('sessionMessage', ['type' => 'success', 'content' => 'Ustawienia zostały pomyślnie zapisane!']);
+    
+        $this->logRepository->new([
+            'category' => 'SETTINGS',
+            'color' => 'primary',
+            'details' => Lang::get('admin.settings.logs.general')
+        ]);
+    
+        return Redirect::route('admin.settings.general.index')
+            ->with('sessionMessage',[
+                'type' => 'success',
+                'content' => Lang::get('admin.settings.saved')
+            ]);
     }
 }
