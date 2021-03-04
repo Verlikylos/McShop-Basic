@@ -120,7 +120,7 @@ Route::middleware('auth')
                     'uses' => 'ServersController@delete'
                 ]);
             });
-    
+
         Route::prefix('services')
             ->name('services.')
             ->group(function () {
@@ -157,7 +157,7 @@ Route::middleware('auth')
                     'uses' => 'ServicesController@index'
                 ]);
             });
-    
+
         Route::prefix('vouchers')
             ->name('vouchers.')
             ->group(function () {
@@ -178,7 +178,7 @@ Route::middleware('auth')
                     'uses' => 'VouchersController@delete'
                 ]);
             });
-    
+
         Route::prefix('pages')
             ->name('pages.')
             ->group(function () {
@@ -215,7 +215,7 @@ Route::middleware('auth')
                     'uses' => 'PagesController@delete'
                 ]);
             });
-    
+
         Route::prefix('logs')
             ->name('logs.')
             ->group(function () {
@@ -227,143 +227,141 @@ Route::middleware('auth')
 
         Route::prefix('settings')
             ->name('settings.')
+            ->namespace('Settings')
             ->group(function () {
-                Route::get('/', [
-                    'as' => 'index',
-                    'uses' => 'SettingsController@index'
+                Route::get('/numbers/create', [
+                    'as' => 'numbers.create',
+                    'uses' => 'SmsNumbersController@create'
+                ]);
+                Route::get('/numbers/{number}/delete', [
+                    'as' => 'numbers.delete',
+                    'uses' => 'SmsNumbersController@delete'
+                ]);
+                Route::post('/numbers', [
+                    'as' => 'numbers.store',
+                    'uses' => 'SmsNumbersController@store'
+                ]);
+                Route::get('/numbers', [
+                    'as' => 'numbers.index',
+                    'uses' => 'SmsNumbersController@index'
+                ]);
+                Route::get('/general', [
+                    'as' => 'general.index',
+                    'uses' => 'GeneralController@index'
+                ]);
+                Route::patch('/general', [
+                    'as' => 'general.update',
+                    'uses' => 'GeneralController@update'
                 ]);
 
-                Route::namespace('Settings')
+                Route::prefix('payments')
+                    ->name('payments.')
+                    ->namespace('Payments')
                     ->group(function () {
-                        Route::get('/numbers/create', [
-                            'as' => 'numbers.create',
-                            'uses' => 'SmsNumbersController@create'
+                        Route::get('/', [
+                            'as' => 'index',
+                            'uses' => 'PaymentsController@index'
                         ]);
-                        Route::get('/numbers/{number}/delete', [
-                            'as' => 'numbers.delete',
-                            'uses' => 'SmsNumbersController@delete'
+                        Route::patch('/', [
+                            'as' => 'update',
+                            'uses' => 'PaymentsController@update'
                         ]);
-                        Route::post('/numbers', [
-                            'as' => 'numbers.store',
-                            'uses' => 'SmsNumbersController@store'
+
+                        Route::get('/lvlup', [
+                            'as' => 'lvlup.index',
+                            'uses' => 'LvlupController@index'
                         ]);
-                        Route::get('/numbers', [
-                            'as' => 'numbers.index',
-                            'uses' => 'SmsNumbersController@index'
+                        Route::patch('/lvlup', [
+                            'as' => 'lvlup.update',
+                            'uses' => 'LvlupController@update'
                         ]);
-                        Route::get('/general', [
-                            'as' => 'general.index',
-                            'uses' => 'GeneralController@index'
+
+                        Route::get('/microsms', [
+                            'as' => 'microsms.index',
+                            'uses' => 'MicroSmsController@index'
                         ]);
-                        Route::patch('/general', [
-                            'as' => 'general.update',
-                            'uses' => 'GeneralController@update'
+                        Route::patch('/microsms', [
+                            'as' => 'microsms.update',
+                            'uses' => 'MicroSmsController@update'
                         ]);
-    
-                        Route::prefix('payments')
-                            ->name('payments.')
-                            ->namespace('Payments')
-                            ->group(function () {
-                                Route::get('/', [
-                                    'as' => 'index',
-                                    'uses' => 'PaymentsController@index'
-                                ]);
-                                Route::patch('/', [
-                                    'as' => 'update',
-                                    'uses' => 'PaymentsController@update'
-                                ]);
-    
-                                Route::get('/lvlup', [
-                                    'as' => 'lvlup.index',
-                                    'uses' => 'LvlupController@index'
-                                ]);
-                                Route::patch('/lvlup', [
-                                    'as' => 'lvlup.update',
-                                    'uses' => 'LvlupController@update'
-                                ]);
-    
-                                Route::get('/microsms', [
-                                    'as' => 'microsms.index',
-                                    'uses' => 'MicroSmsController@index'
-                                ]);
-                                Route::patch('/microsms', [
-                                    'as' => 'microsms.update',
-                                    'uses' => 'MicroSmsController@update'
-                                ]);
-    
-                                Route::get('/paybylink', [
-                                    'as' => 'paybylink.index',
-                                    'uses' => 'PaybylinkController@index'
-                                ]);
-                                Route::patch('/paybylink', [
-                                    'as' => 'paybylink.update',
-                                    'uses' => 'PaybylinkController@update'
-                                ]);
-    
-                                Route::get('/hotpay', [
-                                    'as' => 'hotpay.index',
-                                    'uses' => 'HotpayController@index'
-                                ]);
-                                Route::patch('/hotpay', [
-                                    'as' => 'hotpay.update',
-                                    'uses' => 'HotpayController@update'
-                                ]);
-                            });
-                        
-                        Route::get('/voucher', [
-                            'as' => 'voucher.index',
-                            'uses' => 'VoucherController@index'
+
+                        Route::get('/paybylink', [
+                            'as' => 'paybylink.index',
+                            'uses' => 'PaybylinkController@index'
                         ]);
-                        Route::patch('/voucher', [
-                            'as' => 'voucher.update',
-                            'uses' => 'VoucherController@update'
+                        Route::patch('/paybylink', [
+                            'as' => 'paybylink.update',
+                            'uses' => 'PaybylinkController@update'
                         ]);
-                        Route::get('/layout', [
-                            'as' => 'layout.index',
-                            'uses' => 'LayoutController@index'
+
+                        Route::get('/hotpay', [
+                            'as' => 'hotpay.index',
+                            'uses' => 'HotpayController@index'
                         ]);
-                        Route::patch('/layout', [
-                            'as' => 'layout.update',
-                            'uses' => 'LayoutController@update'
+                        Route::patch('/hotpay', [
+                            'as' => 'hotpay.update',
+                            'uses' => 'HotpayController@update'
                         ]);
-                        Route::get('/widget', [
-                            'as' => 'widget.index',
-                            'uses' => 'WidgetController@index'
+                    });
+
+                Route::get('/voucher', [
+                    'as' => 'voucher.index',
+                    'uses' => 'VoucherController@index'
+                ]);
+                Route::patch('/voucher', [
+                    'as' => 'voucher.update',
+                    'uses' => 'VoucherController@update'
+                ]);
+                Route::get('/layout', [
+                    'as' => 'layout.index',
+                    'uses' => 'LayoutController@index'
+                ]);
+                Route::patch('/layout', [
+                    'as' => 'layout.update',
+                    'uses' => 'LayoutController@update'
+                ]);
+                Route::get('/widget', [
+                    'as' => 'widget.index',
+                    'uses' => 'WidgetController@index'
+                ]);
+
+                Route::prefix('widget')
+                    ->name('widget.')
+                    ->namespace('Widgets')
+                    ->group(function () {
+                        Route::get('/teamspeak', [
+                            'as' => 'teamspeak.index',
+                            'uses' => 'TeamspeakController@index'
                         ]);
-    
-                        Route::prefix('widget')
-                            ->name('widget.')
-                            ->namespace('Widgets')
-                            ->group(function () {
-                                Route::get('/teamspeak', [
-                                    'as' => 'teamspeak.index',
-                                    'uses' => 'TeamspeakController@index'
-                                ]);
-                                Route::patch('/teamspeak', [
-                                    'as' => 'teamspeak.update',
-                                    'uses' => 'TeamspeakController@update'
-                                ]);
-                                Route::get('/teamspeak/toggleActive', [
-                                    'as' => 'teamspeak.toggle_active',
-                                    'uses' => 'TeamspeakController@toggle_active'
-                                ]);
-                                
-                                Route::get('/discord', [
-                                    'as' => 'discord.index',
-                                    'uses' => 'DiscordController@index'
-                                ]);
-                                Route::patch('/discord', [
-                                    'as' => 'discord.update',
-                                    'uses' => 'DiscordController@update'
-                                ]);
-                                Route::get('/discord/toggleActive', [
-                                    'as' => 'discord.toggle_active',
-                                    'uses' => 'DiscordController@toggle_active'
-                                ]);
-                            });
+                        Route::patch('/teamspeak', [
+                            'as' => 'teamspeak.update',
+                            'uses' => 'TeamspeakController@update'
+                        ]);
+                        Route::get('/teamspeak/toggleActive', [
+                            'as' => 'teamspeak.toggle_active',
+                            'uses' => 'TeamspeakController@toggle_active'
+                        ]);
+
+                        Route::get('/discord', [
+                            'as' => 'discord.index',
+                            'uses' => 'DiscordController@index'
+                        ]);
+                        Route::patch('/discord', [
+                            'as' => 'discord.update',
+                            'uses' => 'DiscordController@update'
+                        ]);
+                        Route::get('/discord/toggleActive', [
+                            'as' => 'discord.toggle_active',
+                            'uses' => 'DiscordController@toggle_active'
+                        ]);
                     });
             });
     });
+
+Route::get('/order/{orderHash}', [
+    'as' => 'order',
+    'uses' => 'OrderController@index'
+]);
 
 Route::get('/page/{page}', [
     'as' => 'page',

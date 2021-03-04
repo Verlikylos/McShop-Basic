@@ -20,7 +20,7 @@ class ServersController extends Controller
 {
     private $serverRepository;
     private $logRepository;
-    
+
     public function __construct(ServerRepositoryInterface $serverRepository, LogRepositoryInterface $logRepository)
     {
         $this->serverRepository = $serverRepository;
@@ -56,7 +56,7 @@ class ServersController extends Controller
             'active' => false,
             'sort_id' => $this->serverRepository->getLastSortIndex() + 1,
         ];
-        
+
         if (Str::endsWith($data['api_address'], '/')) {
             $data['api_address'] = Str::replaceLast('/', '', $data['api_address']);
         }
@@ -66,7 +66,7 @@ class ServersController extends Controller
         }
 
         $server = $this->serverRepository->new($data);
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'success',
@@ -98,7 +98,7 @@ class ServersController extends Controller
         ];
 
         $this->serverRepository->update($server->id, $data);
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'info',
@@ -130,7 +130,7 @@ class ServersController extends Controller
                     'server_id' => $server->getId()
                 ])
             ]);
-            
+
             return Redirect::back()
                 ->with('sessionMessage', [
                     'type' => 'success',
@@ -140,7 +140,7 @@ class ServersController extends Controller
                     ])
                 ]);
         }
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'primary',
@@ -149,7 +149,7 @@ class ServersController extends Controller
                 'server_id' => $server->getId()
             ])
         ]);
-    
+
         return Redirect::back()
             ->with('sessionMessage', [
                 'type' => 'success',
@@ -184,7 +184,7 @@ class ServersController extends Controller
 
         $this->serverRepository->update($server->getId(), $firstServerData);
         $this->serverRepository->update($secondServer->getId(), $secondServerData);
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'primary',
@@ -193,11 +193,11 @@ class ServersController extends Controller
                 'server_id' => $server->getId()
             ])
         ]);
-    
+
         return Redirect::back()
             ->with('sessionMessage', [
                 'type' => 'success',
-                'content' => Lang::get('admin.servers.order.change', [
+                'content' => Lang::get('admin.servers.order.updated', [
                     'server' => $server->getName(),
                     'server_id' => $server->getId()
                 ])
@@ -223,7 +223,7 @@ class ServersController extends Controller
             'api_address' => $request->get('serverApiAddress'),
             'api_key' => $request->get('serverApiKey'),
         ];
-    
+
         if (Str::endsWith($data['api_address'], '/')) {
             $data['api_address'] = Str::replaceLast('/', '', $data['api_address']);
         }
@@ -233,7 +233,7 @@ class ServersController extends Controller
         }
 
         $this->serverRepository->update($server->getId(), $data);
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'info',
@@ -256,7 +256,7 @@ class ServersController extends Controller
     public function delete(Server $server)
     {
         $this->serverRepository->delete($server->getId());
-    
+
         $this->logRepository->new([
             'category' => 'SERVERS',
             'color' => 'danger',

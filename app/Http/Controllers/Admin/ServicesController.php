@@ -22,7 +22,7 @@ class ServicesController extends Controller
     private $serverRepository;
     private $numberRepository;
     private $logRepository;
-    
+
     public function __construct(
         ServiceRepositoryInterface $serviceRepository,
         ServerRepositoryInterface $serverRepository,
@@ -35,30 +35,31 @@ class ServicesController extends Controller
         $this->numberRepository = $numberRepository;
         $this->logRepository = $logRepository;
     }
-    
+
     public function index(Server $server)
     {
         $servers = $this->serverRepository->all();
-        
+
         if (!$server->exists) {
             $server = $servers->first();
         }
-        
+
         $services = $this->serviceRepository->paginateServerServices($server);
-        
-        return View::make('admin.services.index')->with(['services' => $services, 'servers' => $servers, 'activeServer' => $server]);
+
+        return View::make('admin.services.index')->with(['services' => $services, 'activeServer' => $server]);
     }
-    
+
     public function create()
     {
         $servers = $this->serverRepository->all();
-        
+
         // TODO get only numbers for currently active sms operator
         $numbers = $this->numberRepository->all();
-        
+
         return View::make('admin.services.create')->with(['servers' => $servers, 'numbers' => $numbers]);
     }
-    
+
+//    public function store(StoreServiceRequest $request)
     public function store(StoreServiceRequest $request)
     {
         $data = [
@@ -75,13 +76,13 @@ class ServicesController extends Controller
             'active' => false,
             'sort_id' => $this->serviceRepository->getLastSortIndex() + 1
         ];
-    
+
         if ($request->hasFile('serviceImage') && $request->file('serviceImage')->isValid()) {
             $data['image_url'] = asset(str_replace('public/', '', $request->file('serviceImage')->storePublicly('public/uploads/services')));
         }
-        
+
         $service = $this->serviceRepository->new($data);
-    
+
         $this->logRepository->new([
             'category' => 'SERVICES',
             'color' => 'success',
@@ -92,7 +93,7 @@ class ServicesController extends Controller
                 'server_id' => $service->getServer()->getId(),
             ])
         ]);
-    
+
         return Redirect::route(
                 'admin.services.index',
                 ['server' => $service->getServer()->getSlug()]
@@ -107,10 +108,10 @@ class ServicesController extends Controller
                 ])
             ]);
     }
-    
+
     public function toggle_active(Service $service) {
         $this->serviceRepository->update($service, ['active' => !$service->isActive()]);
-        
+
         if ($service->isActive()) {
             $this->logRepository->new([
                 'category' => 'SERVICES',
@@ -122,7 +123,7 @@ class ServicesController extends Controller
                     'server_id' => $service->getServer()->getId(),
                 ])
             ]);
-            
+
             return Redirect::back()
                 ->with('sessionMessage', [
                     'type' => 'success',
@@ -134,7 +135,7 @@ class ServicesController extends Controller
                     ])
                 ]);
         }
-    
+
         $this->logRepository->new([
             'category' => 'SERVICES',
             'color' => 'primary',
@@ -145,7 +146,7 @@ class ServicesController extends Controller
                 'server_id' => $service->getServer()->getId(),
             ])
         ]);
-        
+
         return Redirect::back()
             ->with('sessionMessage', [
                 'type' => 'success',
@@ -157,32 +158,32 @@ class ServicesController extends Controller
                 ])
             ]);
     }
-    
+
     public function swap(Service $service, bool $up)
     {
         $secondService = null;
-        
+
         if ($up) {
             $secondService = $this->serviceRepository->getWithLowerSortIdThan($service);
         } else {
             $secondService = $this->serviceRepository->getWithHigherSortIdThan($service);
         }
-        
+
         if ($secondService == null) {
             throw new BadRequestHttpException();
         }
-        
+
         $firstServiceData = [
             'sort_id' => $secondService->getSortId()
         ];
-        
+
         $secondServiceData = [
             'sort_id' => $service->getSortId()
         ];
-        
+
         $this->serviceRepository->update($service, $firstServiceData);
         $this->serviceRepository->update($secondService, $secondServiceData);
-    
+
         $this->logRepository->new([
             'category' => 'SERVICES',
             'color' => 'primary',
@@ -193,7 +194,7 @@ class ServicesController extends Controller
                 'server_id' => $service->getServer()->getId(),
             ])
         ]);
-        
+
         return Redirect::back()
             ->with('sessionMessage', [
                 'type' => 'success',
@@ -205,16 +206,16 @@ class ServicesController extends Controller
                 ])
             ]);
     }
-    
+
     public function edit(Service $service)
     {
         // TODO get numbers of active operator
         $numbers = $this->numberRepository->all();
         $servers = $this->serverRepository->all();
-        
+
         return View::make('admin.services.edit', ['service' => $service, 'servers' => $servers, 'numbers' => $numbers]);
     }
-    
+
     public function update(UpdateServiceRequest $request, Service $service)
     {
         $data = [
@@ -229,13 +230,13 @@ class ServicesController extends Controller
             'transfer_cost' => $request->has('serviceTransferCost') ? intval(floatval($request->get('serviceTransferCost')) * 100) : null,
             'paypal_cost' => $request->has('servicePaypalCost') ? intval(floatval($request->get('servicePaypalCost')) * 100) : null
         ];
-    
+
         if ($request->hasFile('serviceImage') && $request->file('serviceImage')->isValid()) {
             $data['image_url'] = asset(str_replace('public/', '', $request->file('serviceImage')->storePublicly('public/uploads/services')));
         }
-    
+
         $this->serviceRepository->update($service, $data);
-    
+
         $this->logRepository->new([
             'category' => 'SERVICES',
             'color' => 'info',
@@ -246,7 +247,7 @@ class ServicesController extends Controller
                 'server_id' => $service->getServer()->getId(),
             ])
         ]);
-    
+
         return Redirect::route('admin.services.index', [
                 'server' => $service->getServer()->getSlug()
             ])
@@ -260,12 +261,12 @@ class ServicesController extends Controller
                 ])
             ]);
     }
-    
+
     // TODO make delete request of all entities with HTTP DELETE method instead of GET
     public function delete(Service $service)
     {
         $this->serviceRepository->delete($service);
-    
+
         $this->logRepository->new([
             'category' => 'SERVICES',
             'color' => 'danger',
@@ -276,7 +277,7 @@ class ServicesController extends Controller
                 'server_id' => $service->getServer()->getId(),
             ])
         ]);
-    
+
         return Redirect::route('admin.services.index', [
                 'server' => $service->getServer()->getSlug()
             ])

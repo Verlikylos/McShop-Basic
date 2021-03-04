@@ -15,12 +15,13 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->char('hash', 36)->unique();
             $table->string('customer');
             $table->unsignedBigInteger('service_id');
             $table->unsignedBigInteger('payment_id')->nullable(true);
             $table->unsignedBigInteger('profit')->nullable(true);
             $table->enum('status', ['CREATED', 'PAID', 'CANCELED', 'COMPLETED', 'FAILED']);
-            $table->timestamp('date');
+            $table->timestamps();
         });
     }
 

@@ -1,0 +1,177 @@
+body:not(.acp) {
+  .logo-wrapper {
+    margin: 2rem 0;
+  }
+
+  .nav-breadcrumb {
+    margin: 1rem 0;
+  }
+
+  footer {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+
+    .card-body {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+
+      padding: .25rem .5rem;
+    }
+  }
+}
+
+.acp {
+  header {
+    min-height: 30vh;
+
+    padding-top: 5rem;
+
+    color: $white;
+
+    background: linear-gradient(rgba($black, 0.15), rgba($black, 0.15)), url('../../images/background.png') center center no-repeat;
+
+    h1 {
+      i {
+        margin-right: 0.5rem;
+
+        color: rgba($white, 0.75);
+      }
+
+      font-size: 2.25rem;
+    }
+  }
+
+  #toggleSidenav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .navbar-brand.sidenav-navbar-brand {
+    width: auto;
+
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+
+    font-weight: 500;
+    text-align: center;
+  }
+
+  @include media-breakpoint-up(lg) {
+    #toggleSidenav {
+      margin-left: 2rem;
+      margin-right: 2rem;
+    }
+
+    .navbar-brand.sidenav-navbar-brand {
+      width: 16rem;
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  .shadow-right {
+    box-shadow: 0.16rem 0 1.75rem 0 rgba(31, 45, 65, 0.15);
+  }
+
+  main {
+    .card-body:first-child {
+      min-height: 67vh;
+    }
+
+    margin-top: -6rem;
+  }
+
+  nav.navbar.fixed-top {
+    .dropdown-menu {
+      left: -2rem;
+    }
+  }
+
+  table {
+    thead {
+      th {
+        border-bottom-width: 2px;
+      }
+    }
+
+    td, tr, th {
+      font-size: 0.85rem;
+      color: $gray-700;
+      vertical-align: middle;
+    }
+  }
+
+  footer {
+    padding: 0 1rem;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+
+    .nav-link {
+      padding: 0 1rem;
+
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+.table-centered {
+  td, tr, th {
+    text-align: center;
+  }
+}
+
+.btn-table {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 30px !important;
+  width: 30px !important;
+
+  padding: 0;
+
+  color: rgba(31, 45, 65, 0.5) !important;
+  font-size: 0.75rem;
+
+  background-color: transparent;
+
+  border-radius: 0.35rem !important;
+  border-color: transparent;
+
+  &:hover {
+    background-color: rgba(31, 45, 65, 0.1);
+    border-color: transparent;
+  }
+}
+
+.form-check .form-check-input {
+  float: none;
+}
+
+.permissions-list .list-group-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list-group .form-check {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 0;
+  padding-left: 0;
+}

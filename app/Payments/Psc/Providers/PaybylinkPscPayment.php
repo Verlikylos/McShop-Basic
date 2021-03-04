@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Str;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class PaybylinkPscPayment implements DirectPscPayment
 {
@@ -29,12 +30,14 @@ class PaybylinkPscPayment implements DirectPscPayment
     private $description;
     private $status;
     private $pid;
+    private $orderHash;
     
-    public static function new(Server $server, Service $service): PscPayment
+    public static function new(Server $server, Service $service, UuidInterface $orderHash): PscPayment
     {
         $instance = new self();
         
-        $instance->userId = setting('settings_payments_paybylink_psc_userid');
+        $instance->orderHash = $orderHash;
+        $instance->userId = setting('settings_payments_paybylink_userid');
         $instance->shopId = setting('settings_payments_paybylink_psc_shopid');
         $instance->description = Lang::get('main.payments.payment_title', [
             'service' => $service->getName(),
@@ -43,7 +46,7 @@ class PaybylinkPscPayment implements DirectPscPayment
         ]);
         $instance->amount = $service->getPscCostRaw();
         $instance->control = Str::uuid();
-        $instance->hash = hash('sha256', setting('settings_payments_paybylink_psc_userid') . setting('settings_payments_paybylink_psc_shoppin') . paymentCostToString($service->getPscCostRaw()));
+        $instance->hash = hash('sha256', setting('settings_payments_paybylink_userid') . setting('settings_payments_paybylink_psc_shoppin') . paymentCostToString($service->getPscCostRaw()));
         $instance->status = 'CREATED';
         
         return $instance;
@@ -70,6 +73,7 @@ class PaybylinkPscPayment implements DirectPscPayment
 //        if (!in_array($clientIp, $allowedIps, true)) {
 //            return null;
 //        }
+        //TODO uncomment
         
         $instance = new self();
         $instance->userId = $request->get('userid');
@@ -93,9 +97,9 @@ class PaybylinkPscPayment implements DirectPscPayment
         $data = [
             'userid' => $this->userId,
             'shopid' => $this->shopId,
-            'return_ok' => 'https://www.rushpay.pl/psc/?status=ok',
-            'return_fail' => 'https://www.rushpay.pl/psc/?status=fail',
-            'url' => 'https://www.rushpay.pl/psc/?checkPayment',
+            'return_ok' => route('order', $this->orderHash),
+            'return_fail' => route('order', $this->orderHash),
+            'url' => route('api.payments.psc'),
             'description' => $this->description,
             'amount' => paymentCostToString($this->amount),
             'control' => $this->control->toString(),
@@ -140,12 +144,12 @@ class PaybylinkPscPayment implements DirectPscPayment
     
     public function compare(Payment $payment): bool
     {
-        return $this->userId == setting('settings_payments_paybylink_psc_userid') &&
+        return $this->userId == setting('settings_payments_paybylink_userid') &&
             $this->shopId == setting('settings_payments_paybylink_psc_shopid') &&
             $this->amount == $payment->getCostRaw() &&
             $this->hash == hash(
                 'sha256',
-                setting('settings_payments_paybylink_psc_userid') .
+                setting('settings_payments_paybylink_userid') .
                     setting('settings_payments_paybylink_psc_shoppin') .
                     paymentCostToString($payment->getOrder()->getService()->getPscCostRaw())
             ) &&

@@ -23,9 +23,9 @@ class CreateServicesTable extends Migration
             $table->boolean('requires_online_player')->default(false);
             $table->text('commands');
             $table->unsignedBigInteger('smsnumber_id')->nullable(true);
-            $table->unsignedBigInteger('psc_cost')->nullable();
-            $table->unsignedBigInteger('transfer_cost')->nullable();
-            $table->unsignedBigInteger('paypal_cost')->nullable();
+            $table->unsignedBigInteger('psc_cost')->nullable(true);
+            $table->unsignedBigInteger('transfer_cost')->nullable(true);
+            $table->unsignedBigInteger('paypal_cost')->nullable(true);
             $table->boolean('active')->default(true);
             $table->unsignedInteger('sort_id');
     

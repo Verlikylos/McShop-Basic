@@ -4,12 +4,15 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 
 /**
  * App\Models\Order
  *
  * @property int $id
+ * @property string $hash
  * @property string $customer
  * @property int $service_id
  * @property int $payment_id
@@ -19,17 +22,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Order extends Model
 {
-    public $timestamps = false;
-    
-    protected $dates = [
-        'date'
-    ];
-    
     protected $guarded = [];
     
     public function getId(): int
     {
         return $this->id;
+    }
+    
+    public function getHash(): ?UuidInterface
+    {
+        return Uuid::fromString($this->hash);
     }
     
     public function getCustomer(): string

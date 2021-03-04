@@ -1,11 +1,11 @@
 {
-    "name": "mcshop/mcshop-basic",
+    "name": "verlikylos/mcshop-basic",
     "description": "Nowy wymiar automatycznego sklepu Minecraft!",
     "version": "2.0.0-beta.1",
     "type": "project",
-    "keywords": ["mcshop", "mcshop-basic", "basic", "mc", "shop", "sklep", "minecraft", "itemshop", "smsshop", "sms", "verlikylos"],
-    "homepage": "https://vmcshop.pro/",
-    "readme": "https://github.com/Verlikylos/MCShop-Basic/blob/master/README.md",
+    "keywords": ["mcshop", "mcshop-basic", "basic", "mc", "shop", "sklep", "minecraft", "itemshop", "smsshop", "sms", "verlikylos", "vmcshop", "vmc", "v", "mc"],
+    "homepage": "https://mcshop.io/",
+    "readme": "https://github.com/Verlikylos/McShop-Basic/blob/master/README.md",
     "license": "GPL-3.0-only",
     "authors": [
         {
@@ -24,7 +24,7 @@
         "source": "https://github.com/Verlikylos/MCShop-Basic"
     },
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "anlutro/l4-settings": "^0.11.0",
         "erusev/parsedown": "^1.7",
         "fideloper/proxy": "^4.0",
@@ -61,15 +61,15 @@
         "classmap": [
             "database/seeds",
             "database/factories"
+        ],
+        "files": [
+            "app/helpers.php"
         ]
     },
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        },
-        "files": [
-            "app/helpers.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

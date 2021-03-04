@@ -21,12 +21,19 @@ mix
     .setPublicPath(PATHS.dist)
     .options({ processCssUrls: false })
 
-    .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
-    .copy(`${PATHS.src}/js/jasny-bootstrap.min.js`, `${PATHS.dist}/js/jasny-bootstrap.min.js`)
+    .js(`${PATHS.src}/js/bootstrap/bootstrap.js`, `${PATHS.dist}/js/bootstrap.js`)
+    .sass(`${PATHS.src}/scss/bootstrap/bootstrap.scss`, `${PATHS.dist}/css/themes/mcshop.css`)
 
-    .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)
+    .copy(`node_modules/@fortawesome/fontawesome-free/css/all.css`, `${PATHS.dist}/css/fontawesome.css`)
+    .copyDirectory(`node_modules/@fortawesome/fontawesome-free/webfonts`, `${PATHS.dist}/webfonts`)
 
-    .sass(`${PATHS.src}/scss/themes/mcshop/mcshop.scss`, `${PATHS.dist}/css/themes/mcshop.min.css`)
+    .copyDirectory(`${PATHS.src}/images`, `${PATHS.dist}/images`)
+    .copyDirectory(`${PATHS.src}/fonts`, `${PATHS.dist}/fonts`)
+
+    // .js(`${PATHS.src}/js/bootstrap/index.js`, `${PATHS.dist}/js/bootstrap.min.js`)
+    // .copy(`${PATHS.src}/js/jasny-bootstrap.min.js`, `${PATHS.dist}/js/jasny-bootstrap.min.js`)
+    // .copy(`${PATHS.src}/css`, `${PATHS.dist}/css`)
+    // .sass(`${PATHS.src}/scss/themes/mcshop/mcshop.scss`, `${PATHS.dist}/css/themes/mcshop.min.css`)
     // .sass(`${PATHS.src}/scss/themes/cerulean/cerulean.scss`, `${PATHS.dist}/css/themes/cerulean.min.css`)
     // .sass(`${PATHS.src}/scss/themes/cosmo/cosmo.scss`, `${PATHS.dist}/css/themes/cosmo.min.css`)
     // .sass(`${PATHS.src}/scss/themes/cyborg/cyborg.scss`, `${PATHS.dist}/css/themes/cyborg.min.css`)
@@ -48,9 +55,8 @@ mix
     // .sass(`${PATHS.src}/scss/themes/superhero/superhero.scss`, `${PATHS.dist}/css/themes/superhero.min.css`)
     // .sass(`${PATHS.src}/scss/themes/united/united.scss`, `${PATHS.dist}/css/themes/united.min.css`)
     // .sass(`${PATHS.src}/scss/themes/yeti/yeti.scss`, `${PATHS.dist}/css/themes/yeti.min.css`)
-
-    .copy(`${PATHS.src}/images`, `${PATHS.dist}/images`)
-    .copy(`${PATHS.src}/webfonts`, `${PATHS.dist}/webfonts`)
+    // .copy(`${PATHS.src}/images`, `${PATHS.dist}/images`)
+    // .copy(`${PATHS.src}/webfonts`, `${PATHS.dist}/webfonts`)
 
     .version()
     .sourceMaps()

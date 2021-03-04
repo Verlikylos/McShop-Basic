@@ -1,0 +1,219 @@
+@use '~bootstrap/scss/variables';
+
+@import 'resources/scss/mixins/font-face';
+
+@import "variables";
+
+.btn-success, .btn-outline-success:hover {
+  color: $white;
+}
+
+.dropdown-item {
+  i {
+    margin-right: 0.5rem;
+
+    color: rgba($primary, 0.9);
+  }
+}
+
+.badge {
+  vertical-align: middle;
+}
+
+.acp {
+  .layout-content {
+    background-color: #eff3f9;
+  }
+
+  footer {
+    &, a {
+      color: $gray-500;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+body:not(.acp) {
+  .navbar {
+    height: 4rem;
+
+    padding: 0;
+
+    border-radius: $card-border-radius;
+
+    .navbar-collapse, .navbar-nav, .nav-item, .nav-link {
+      height: 100%;
+    }
+
+    .nav-link {
+      vertical-align: middle;
+    }
+  }
+}
+
+.list-group.list-group-thick .list-group-item {
+  border-color: #ced4da;
+  border-width: 2px;
+  border-top: none;
+
+  &:first-child {
+    border-top: 2px solid #ced4da;
+  }
+}
+
+.toast {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  z-index: $zindex-fixed - 20;
+
+  width: calc(100vw - 2rem);
+  max-width: 500px;
+  margin: 1rem;
+
+  @include media-breakpoint-up('md') {
+    width: 400px;
+  }
+
+  &.bg-success {
+    .toast-header {
+      background-color: $success;
+    }
+  }
+
+  &.bg-primary {
+    .toast-header {
+      background-color: $primary;
+    }
+  }
+
+  &.bg-warning {
+    .toast-header {
+      background-color: $warning;
+    }
+  }
+
+  &.bg-danger {
+    .toast-header {
+      background-color: $danger;
+    }
+  }
+
+  &.bg-info {
+    .toast-header {
+      background-color: $info;
+    }
+  }
+
+  .toast-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span {
+      line-height: 1;
+    }
+
+    .close {
+      text-shadow: none;
+      color: $white;
+
+      &:hover {
+        color: $white;
+      }
+    }
+  }
+
+  &, .toast-header, .toast-body {
+    color: $white;
+  }
+}
+
+.form-group {
+  position: relative;
+
+  .form-control:focus,
+  .form-select:focus,
+  .form-file-input:focus {
+    box-shadow: none;
+  }
+
+  .form-label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.75rem;
+
+    margin: 0;
+    padding: 0;
+
+    color: darken($input-border-color, 20);
+
+    background-color: transparent;
+
+    transform-origin: 0 0;
+    transition: all .2s ease-out;
+  }
+
+  .form-control:focus~.form-label,
+  .form-control.active~.form-label,
+  .form-select~.form-label {
+    left: 0.5rem;
+
+    padding: 0 0.5rem;
+
+    background-color: $white;
+
+    pointer-events: none;
+
+    transform-origin: 0 0;
+    transform: translateY(-1.15rem) translateY(.1rem) scale(.8);
+  }
+
+  .form-control:focus~.form-label,
+  .form-select:focus~.form-label {
+    color: $primary;
+  }
+
+  .form-control.active.is-invalid~.form-label,
+  .form-select.active.is-invalid~.form-label,
+  .form-control:focus.is-invalid~.form-label,
+  .form-select:focus.is-invalid~.form-label {
+    color: $danger;
+  }
+}
+
+.form-file {
+  .form-file-input:focus-within~.form-file-label {
+    box-shadow: none;
+  }
+
+  .form-label {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 101;
+
+    padding: 0 0.5rem;
+
+    color: darken($input-border-color, 20);
+
+    background-color: $white;
+
+    pointer-events: none;
+
+    transform-origin: 0 0;
+    transform: translateY(-1.15rem) translateY(.1rem) scale(.8);
+  }
+}
+
+.form-control[disabled] {
+  color:darken($input-border-color, 20);
+}

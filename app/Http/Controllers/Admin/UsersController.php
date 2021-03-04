@@ -18,7 +18,7 @@ class UsersController extends Controller
 {
     private $userRepository;
     private $logRepository;
-    
+
     public function __construct(UserRepositoryInterface $userRepository, LogRepositoryInterface $logRepository)
     {
         $this->userRepository = $userRepository;
@@ -56,7 +56,7 @@ class UsersController extends Controller
         ];
 
         $user = $this->userRepository->new($data);
-        
+
         $this->logRepository->new([
             'category' => 'USERS',
             'color' => 'success',
@@ -72,7 +72,8 @@ class UsersController extends Controller
                 'content' => Lang::get('admin.users.created', [
                     'login' => $user->getName(),
                     'password' => $password
-                ])
+                ]),
+                'autohide' => false
             ]);
     }
 
@@ -90,7 +91,7 @@ class UsersController extends Controller
 
         $user->setPassword($password);
         $user->save();
-    
+
         $this->logRepository->new([
             'category' => 'USERS',
             'color' => 'primary',
@@ -107,7 +108,8 @@ class UsersController extends Controller
                     'user' => $user->getName(),
                     'user_id' => $user->getId(),
                     'password' => $password
-                ])
+                ]),
+                'autohide' => false
             ]);
     }
 
@@ -149,7 +151,7 @@ class UsersController extends Controller
 
         $user->update($data);
         $user->save();
-    
+
         $this->logRepository->new([
             'category' => 'USERS',
             'color' => 'info',
@@ -180,7 +182,7 @@ class UsersController extends Controller
         }
 
         $this->userRepository->delete($user->getId());
-    
+
         $this->logRepository->new([
             'category' => 'USERS',
             'color' => 'danger',

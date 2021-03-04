@@ -1,0 +1,14 @@
+.form-file-with-preview {
+  .file-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 1rem;
+
+    img {
+      max-width: 248px;
+      border-radius: $card-border-radius;
+    }
+  }
+}

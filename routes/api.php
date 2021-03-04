@@ -26,18 +26,9 @@ Route::namespace('Api')
        ]);
 });
 
-Route::name('api.payments.')
-    ->prefix('payments')
-    ->group(function () {
-        Route::post('/psc', [
-            'as' => 'psc',
-            'uses' => 'Payments\\PscPaymentController@verify'
-        ]);
-});
-
-Route::post('/transfer/notify/hotpay', [
-    'as' => 'pscas',
-    'uses' => 'Payments\\PscPaymentController@verify'
+Route::post('/api/payment/verify', [
+    'as' => 'api.payment.verify',
+    'uses' => 'CheckoutController@verify'
 ]);
 
 

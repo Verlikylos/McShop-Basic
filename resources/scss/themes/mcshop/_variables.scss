@@ -1,113 +1,46 @@
-// Flatly 4.3.1
-// Bootswatch
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Thin', 100, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-ThinItalic', 100, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-ExtraLight', 200, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-ExtraLightItalic', 200, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Light', 300, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-LightItalic', 300, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Regular', 400, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-RegularItalic', 400, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Medium', 500, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-MediumItalic', 500, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-SemiBold', 600, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-SemiBoldItalic', 600, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Bold', 700, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-BoldItalic', 700, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-ExtraBold', 800, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-ExtraBoldItalic', 800, italic, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-Black', 900, normal, eot woff2 woff);
+@include font-face(Metropolis, '../../fonts/metropolis/Metropolis-BlackItalic', 900, italic, eot woff2 woff);
 
-//
-// Color system
-//
+$font-family-base: 'Metropolis', serif;
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #ecf0f1 !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #b4bcc2 !default;
-$gray-600: #95a5a6 !default;
-$gray-700: #7b8a8b !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
+$primary: #2c3e50;
+$success: #18bc9c;
+$danger: #e74c3c;
+$warning: #f39c12;
+$info: #046092;
 
-$blue:    #2C3E50 !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #E74C3C !default;
-$orange:  #fd7e14 !default;
-$yellow:  #F39C12 !default;
-$green:   #18BC9C !default;
-$teal:    #20c997 !default;
-$cyan:    #3498DB !default;
+$navbar-dark-color: $white;
+$navbar-dark-hover-color: $success;
+$navbar-light-hover-color: $success;
 
-$primary:       #2c3e50 !default;
-$secondary:     $gray-600 !default;
-$success:       #18bc9c !default;
-$danger:        #e74c3c !default;
-$warning:       #f39c12 !default;
-$info:          #046092 !default;
-$light:         $gray-200 !default;
-$dark:          $gray-700 !default;
+$card-border-width: 0;
 
-$yiq-contrasted-threshold:  175 !default;
+$dropdown-font-size: 0.9rem;
+$dropdown-link-hover-bg: rgba($primary, 0.2);
 
-// Links
+$badge-font-weight: 400;
 
-$link-color:                $success !default;
+$table-group-seperator-color: inherit;
 
-// Fonts
+$form-check-input-checked-bg-color: $success;
+$input-border-width: 2px;
+$input-focus-border-color: $primary;
+//$input-bg: rgba(#ecf0f6, 0.25);
+$input-disabled-bg: $white;
 
-$font-family-sans-serif:      "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-
-$font-size-base:              0.9375rem !default;
-
-$h1-font-size:                3rem !default;
-$h2-font-size:                2.5rem !default;
-$h3-font-size:                2rem !default;
-
-// Tables
-
-$table-accent-bg:             $gray-200 !default;
-
-// Dropdowns
-
-$dropdown-link-color:               $gray-700 !default;
-$dropdown-link-hover-color:         $white !default;
-$dropdown-link-hover-bg:            $primary !default;
-
-// Navs
-
-$nav-link-padding-y:                .5rem !default !default;
-$nav-link-padding-x:                2rem !default;
-$nav-link-disabled-color:           $gray-600 !default !default;
-
-$nav-tabs-border-color:             $gray-200 !default;
-
-// Navbar
-
-$navbar-padding-y:                  1rem !default;
-
-$navbar-dark-color:                 $white !default;
-$navbar-dark-hover-color:           $success !default;
-
-// Pagination
-
-$pagination-color:                  $white !default;
-$pagination-bg:                     $success !default;
-$pagination-border-width:           0 !default;
-$pagination-border-color:           transparent !default;
-
-$pagination-hover-color:            $white !default;
-$pagination-hover-bg:               darken($success, 15%) !default;
-$pagination-hover-border-color:     transparent !default;
-
-$pagination-active-bg:              $pagination-hover-bg !default;
-$pagination-active-border-color:    transparent !default;
-
-$pagination-disabled-color:         $gray-200 !default;
-$pagination-disabled-bg:            lighten($success, 15%) !default;
-$pagination-disabled-border-color:  transparent !default;
-
-// Progress bars
-
-$progress-height:                   0.625rem !default;
-$progress-font-size:                0.625rem !default;
-
-// List group
-
-$list-group-hover-bg:               $gray-200 !default;
-
-$list-group-disabled-bg:            $gray-200 !default;
-
-// Close
-
-$close-color:                       $white !default;
-$close-text-shadow:                 none !default;

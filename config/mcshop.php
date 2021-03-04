@@ -26,6 +26,21 @@ return [
 //        'hotpay' => 'HotPay.pl',
 //        'simpay' => 'SimPay.pl'
 //    ],
+    'payment_gateways' => [
+        'sms' => [],
+        'psc' => [
+            'paybylink' => [
+                'name' => 'PayByLink.pl',
+                'legal_name' => 'Paybylink',
+                'class' => App\Payments\Psc\Providers\PaybylinkPscPayment::class,
+                'image' => env('APP_URL') . '/images/paybylink.png',
+                'terms' => 'https://paybylink.pl/partner/dokumenty/',
+                'complaint' => 'https://paybylink.pl/kontakt/'
+            ],
+        ],
+        'transfer' => [],
+        'paypal' => [],
+    ],
     'payment_providers' => [
         'sms' => [
             'lvlup' => [
@@ -65,7 +80,7 @@ return [
             'lvlup' => [
                 'name' => 'Lvlup.pro',
                 'legal_name' => 'Dotpay Sp. z o.o',
-                'class' => App\Payments\Psc\LvlupPscPayment::class,
+                'class' => App\Payments\Psc\Providers\LvlupPscPayment::class,
                 'image' => env('APP_URL') . '/images/dotpay.png',
                 'terms' => 'https://www.dotpay.pl/regulamin-serwisow-sms-premium/',
                 'complaint' => 'https://www.dotpay.pl/kontakt/uslugi-sms-premium/'

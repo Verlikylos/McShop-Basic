@@ -46,7 +46,7 @@ return [
 	// set them in this configuration
 	'keyColumn' => 'key',
 	'valueColumn' => 'value',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default Settings
@@ -64,34 +64,34 @@ return [
         'general_page_favicon' => env('APP_URL') . '/images/favicon.ico',
         'general_page_logo' => env('APP_URL') . '/images/logo.png',
         'general_page_background' => env('APP_URL') . '/images/background.png',
-        
+
         'layout_theme' => 'mcshop',
-        
+
         'voucher_default_prefix' => 'mcshop-',
         'voucher_default_code_length' => 16,
-        
+
         'settings_widget_teamspeak_active' => false,
         'settings_widget_teamspeak_server_port' => '9987',
         'settings_widget_teamspeak_server_query_port' => '10011',
-        
+
         'settings_widget_discord_active' => false,
         'settings_widget_discord_height' => '265',
         'settings_widget_discord_theme' => 'light',
-        
+
         'settings_payments_sms_operator' => null,
         'settings_payments_psc_operator' => 'hotpay',
-        
+
         'settings_payments_microsms_userid' => 7267,
         'settings_payments_microsms_sms_serviceid' => 1337,
         'settings_payments_microsms_sms_channel' => 'MSMS.MCSHOP',
-        
+
         'settings_payments_hotpay_psc_secret' => 'VEJSZXlQdmRBZWs0M0RqOEN2RTE2RlZpZG0yZVdUbVRLb2VQbzk1NE1QTT0',
         'settings_payments_hotpay_psc_hash' => 'yZVdUbVRLb2VQb',
-        
-        'settings_payments_paybylink_psc_userid' => 1383,
+
+        'settings_payments_paybylink_userid' => 1383,
         'settings_payments_paybylink_psc_shopid' => 181,
         'settings_payments_paybylink_psc_shoppin' => '2oTGE(C8(d5sxRreHJX]N3nk2',
-        
-        'settings_payments_lvlup_apiKey' => 'LybhSwf9eEeKXn8sEfaI8NoPZ7LDC15Q',
+
+        'settings_payments_lvlup_apiKey' => 'msddoxFGGVLaTOMMFnfOAEzrkXJDNJxf',
     ]
 ];

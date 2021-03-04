@@ -18,9 +18,12 @@ use App\Payments\Psc\PscPayment;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 class PscPaymentController extends Controller
 {
@@ -37,7 +40,8 @@ class PscPaymentController extends Controller
     
     public function checkout(PscPaymentRequest $request, Server $server, Service $service)
     {
-        $payment = PaymentManager::createPscPayment($server, $service);
+        $orderHash = Str::uuid();
+        $payment = PaymentManager::createPscPayment($server, $service, $orderHash);
         
         // TODO check if player is online
         
@@ -51,26 +55,16 @@ class PscPaymentController extends Controller
             }
             
             $paymentModel = $this->paymentRepository->new($payment);
-            $this->orderRepository->new($service, $request->get('playerName'), $paymentModel);
+            $this->orderRepository->new($service, $request->get('playerName'), $orderHash, $paymentModel);
             
             return Redirect::away($payment->getRedirectUrl());
         }
         
         $paymentModel = $this->paymentRepository->new($payment);
-        $this->orderRepository->new($service, $request->get('playerName'), $paymentModel);
+        $this->orderRepository->new($service, $request->get('playerName'), $orderHash, $paymentModel);
         $pages = $this->pageRepository->getActive();
         
         return View::make('payment')->with(['pages' => $pages, 'formData' => $payment->getFormData()]);
-    
-//        FormPscPayment TODO
-//        $payment = $this->paymentRepository->new('PSC', $service->getPscCostRaw(), null, $control);
-//
-//        $this->orderRepository->new($service, $request->get('playerName'), $payment);
-//
-//        $data = $payment->readyFormData($service, $server, $payment->getPid());
-//        $pages = $this->pageRepository->getActive();
-//
-//        return View::make('payments.index')->with(['pages' => $pages, 'data' => $data]);
     }
     
     public function verify(Request $request) {
@@ -91,7 +85,7 @@ class PscPaymentController extends Controller
         }
         
         if (!$payment->compare($paymentModel)) {
-            return new Response('he',  403);
+            return new Response(null,  403);
         }
         
         $this->paymentRepository->update($paymentModel, $payment, true);
@@ -110,6 +104,6 @@ class PscPaymentController extends Controller
             }
         }
         
-        return new Response('OK', 200);
+        return new Response('OK', 202);
     }
 }

@@ -35,6 +35,10 @@ class SmsNumber extends Model
         return $this->number;
     }
     
+    public function getNettoCostRaw(): int {
+        return $this->netto_cost;
+    }
+    
     public function getNettoCost(): float
     {
         return round((float) $this->netto_cost / 100, 2);
@@ -43,6 +47,11 @@ class SmsNumber extends Model
     public function getNettoCostFormatted(): string
     {
         return number_format($this->getNettoCost(), 2, ',', ' ') . ' zł';
+    }
+    
+    public function getBruttoCostRaw(): int
+    {
+        return round($this->netto_cost * 1.23, 0);
     }
     
     public function getBruttoCost(): float

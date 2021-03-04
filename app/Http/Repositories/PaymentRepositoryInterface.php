@@ -9,7 +9,11 @@ use Ramsey\Uuid\Uuid;
 
 interface PaymentRepositoryInterface
 {
-    public function new(\App\Payments\Payment $payment): ?Payment;
+    public function new($type, $provider, $cost): Payment;
+    
+    public function setPid(Payment $payment, string $pid): bool;
+    
+    public function save(Payment $payment): bool;
     
     public function getByControl(Uuid $control): ?Payment;
     
